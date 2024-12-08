@@ -1,8 +1,10 @@
 <template>
   <div class="about">
+    <AboutHeroSection/>
     <h1>This is an about page</h1>
   </div>
 </template>
 
-<style>
-</style>
+<script setup>
+import AboutHeroSection from '@/components/HeroSection/AboutHeroSection.vue'
+</script>
