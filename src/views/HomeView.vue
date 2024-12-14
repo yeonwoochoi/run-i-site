@@ -1,11 +1,11 @@
 <template>
   <div>
-    <HeroSection />
+    <HomeHeroSection />
     <h1>This is an main page</h1>
   </div>
 </template>
 
 <script setup>
-import HeroSection from '@/components/HeroSection/HomeHeroSection.vue'
+import HomeHeroSection from '@/components/HeroSection/HomeHeroSection.vue'
 </script>
 

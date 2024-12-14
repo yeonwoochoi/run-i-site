@@ -1,7 +1,9 @@
 <template>
   <div class="about">
     <AboutHeroSection/>
-    <h1>This is an about page</h1>
+    <div>
+      <h1>This is an about page</h1>
+    </div>
   </div>
 </template>
 
