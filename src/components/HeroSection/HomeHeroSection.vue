@@ -1,8 +1,8 @@
 <template>
   <HeroSection :image-src='imageSrc'>
     <template #title>
-      <h3 class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-3xl">Tailored Solutions </h3>
-      <h1 class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-8xl">Run-I Studio</h1>
+      <h3 class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-3xl animate-fade-in-up">Tailored Solutions </h3>
+      <h1 class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-8xl animate-fade-in-up">Run-I Studio</h1>
       <p class="mt-8 text-pretty text-lg font-medium text-gray-400 sm:text-xl/8">We Drive Your Vision Forward,</p>
       <p class="text-pretty text-lg font-medium text-gray-400 sm:text-xl/8">Whatever It Is—from Web to AI.</p>
       <div class="mt-10 flex items-center justify-center gap-x-6">
