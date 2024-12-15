@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import ServiceHeroSection from '@/components/HeroSection/ServiceHeroSection.vue'
+import ServiceHeroSection from '@/components/hero-section/HeroSectionService.vue'
 </script>
 
 <style scoped>

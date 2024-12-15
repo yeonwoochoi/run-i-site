@@ -8,5 +8,5 @@
 </template>
 
 <script setup>
-import AboutHeroSection from '@/components/HeroSection/AboutHeroSection.vue'
+import AboutHeroSection from '@/components/hero-section/HeroSectionAbout.vue'
 </script>

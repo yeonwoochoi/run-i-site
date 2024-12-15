@@ -6,6 +6,6 @@
 </template>
 
 <script setup>
-import HomeHeroSection from '@/components/HeroSection/HomeHeroSection.vue'
+import HomeHeroSection from '@/components/hero-section/HeroSectionHome.vue'
 </script>
 

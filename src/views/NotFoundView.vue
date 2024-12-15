@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import NotFoundHeroSection from '../components/HeroSection/NotFoundHeroSection.vue'
+import NotFoundHeroSection from '../components/hero-section/HeroSectionNotFound.vue'
 </script>
 
 <style scoped>
