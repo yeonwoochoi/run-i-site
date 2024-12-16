@@ -3,24 +3,19 @@
 </template>
 
 <script setup>
-import { onMounted, ref, defineProps } from 'vue'
+import { onMounted } from 'vue'
+import * as THREE from 'three'
 import { createRenderer } from "./core/renderer.js";
 import { createCamera } from "./core/camera.js";
 import { createScene } from "./core/scene.js";
 import { createLight } from "./core/light.js";
+import { createControls } from './core/control.js'
 import { createCube } from "./objects/cube.js";
-import { DragControls } from 'three/addons/controls/DragControls.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { createPlane } from "./objects/plane.js";
+import { createFog } from "./objects/fog.js";
+import { createSkyBox } from "./objects/skybox.js";
 
-const props = defineProps({
-  x: Number,
-  y: Number
-});
-
-const { x, y } = props;
-
-let canvasContainer = ref(null);
-let camera, scene, renderer, cube, light, controls;
+let camera, scene, renderer, cube, light, lightHelper, plane, controls, skyBox;
 
 onMounted(() => {
   const canvasContainer = document.querySelector('#canvasContainer');
@@ -29,23 +24,39 @@ onMounted(() => {
   const canvas = document.createElement('canvas');
   canvasContainer.appendChild(canvas);
 
+  // 기본 요소 생성
   renderer = createRenderer(canvas);
   scene = createScene();
   camera = createCamera();
-  light = createLight();
+  ({ light, lightHelper } = createLight('PointLight'));
+  controls = createControls(camera, renderer);
   cube = createCube();
+  plane = createPlane();
+  skyBox = createSkyBox();
 
   if (renderer.capabilities.isWebGL2) {
+    // 화면 크기에 100%로 맞추기
     renderer.domElement.style.width = '100%';
 
+    // 그림자 사용
+    renderer.shadowMap.enabled = true;
+    cube.castShadow = true; // 그림자 생길 오브젝트
+    plane.receiveShadow = true; // 그림자 받을 오브젝트
+
+    // 안개 추가
+    createFog(scene)
+
+    // Axis Helper 추가
+    const axesHelper = new THREE.AxesHelper(5)
+    scene.add(axesHelper)
+
+    // Scene 요소 추가
+    scene.add(plane)
     scene.add(cube);
     scene.add(light)
-
-    const dragControls = new DragControls( [cube], camera, renderer.domElement );
-    dragControls.addEventListener( 'drag', () => {
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-    });
+    scene.add(plane)
+    scene.add(skyBox)
+    if (lightHelper) scene.add(lightHelper)
 
     animate()
     window.addEventListener('resize', onWindowResize, false)
@@ -62,7 +73,7 @@ function onWindowResize() {
 
 function animate() {
   requestAnimationFrame( animate );
-
+  controls.update()
   renderer.render( scene, camera );  // 반드시 필요
 }
 </script>
