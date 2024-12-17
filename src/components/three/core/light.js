@@ -13,7 +13,7 @@ export function createLight(type = 'AmbientLight', options = {}) {
 
   const defaultOptions = {
     color: 0xffffff,
-    intensity: 500,
+    intensity: 2,
     position: [0, 10, 10],
     castShadow: true,
     shadowMapSize: 1024, // 그림자 해상도

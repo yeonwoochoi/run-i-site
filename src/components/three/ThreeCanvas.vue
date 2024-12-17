@@ -12,8 +12,8 @@ import { createLight } from "./core/light.js";
 import { createControls } from './core/control.js'
 import { createCube } from "./objects/cube.js";
 import { createPlane } from "./objects/plane.js";
-import { createFog } from "./objects/fog.js";
 import { createSkyBox } from "./objects/skybox.js";
+// import { createFog } from "./objects/fog.js";
 
 let camera, scene, renderer, cube, light, lightHelper, plane, controls, skyBox;
 
@@ -28,7 +28,7 @@ onMounted(() => {
   renderer = createRenderer(canvas);
   scene = createScene();
   camera = createCamera();
-  ({ light, lightHelper } = createLight('PointLight'));
+  ({ light, lightHelper } = createLight('AmbientLight'));
   controls = createControls(camera, renderer);
   cube = createCube();
   plane = createPlane();
@@ -43,8 +43,8 @@ onMounted(() => {
     cube.castShadow = true; // 그림자 생길 오브젝트
     plane.receiveShadow = true; // 그림자 받을 오브젝트
 
-    // 안개 추가
-    createFog(scene)
+    // 안개 추가 (SkyBox 안보여..)
+    // createFog(scene)
 
     // Axis Helper 추가
     const axesHelper = new THREE.AxesHelper(5)
@@ -54,7 +54,6 @@ onMounted(() => {
     scene.add(plane)
     scene.add(cube);
     scene.add(light)
-    scene.add(plane)
     scene.add(skyBox)
     if (lightHelper) scene.add(lightHelper)
 

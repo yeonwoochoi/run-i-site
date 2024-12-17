@@ -4,12 +4,12 @@ export function createSkyBox() {
   const skyMaterialArray = [];
 
   const texturePaths = {
-    ft: '/src/assets/images/skybox/penguins/arid_ft.jpg',
-    bk: '/src/assets/images/skybox/penguins/arid_bk.jpg',
-    up: '/src/assets/images/skybox/penguins/arid_up.jpg',
-    dn: '/src/assets/images/skybox/penguins/arid_dn.jpg',
-    rt: '/src/assets/images/skybox/penguins/arid_rt.jpg',
-    lf: '/src/assets/images/skybox/penguins/arid_lf.jpg',
+    ft: 'src/assets/images/skybox/penguins/arid_ft.jpg',
+    bk: 'src/assets/images/skybox/penguins/arid_bk.jpg',
+    up: 'src/assets/images/skybox/penguins/arid_up.jpg',
+    dn: 'src/assets/images/skybox/penguins/arid_dn.jpg',
+    rt: 'src/assets/images/skybox/penguins/arid_rt.jpg',
+    lf: 'src/assets/images/skybox/penguins/arid_lf.jpg',
   };
 
   const loader = new TextureLoader();
@@ -69,7 +69,7 @@ export function createSkyBox() {
     skyMaterial.side = BackSide;
   });
 
-  const skyGeometry = new BoxGeometry(2400, 2400, 2400);
+  const skyGeometry = new BoxGeometry(240, 240, 240);
   const sky = new Mesh(skyGeometry, skyMaterialArray);
   return sky;
 }
