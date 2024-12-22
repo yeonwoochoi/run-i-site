@@ -1,12 +1,11 @@
 <template>
   <div>
-    <ExperienceCanvas/>
+    <ExperienceSample2/>
   </div>
 </template>
 
 <script setup>
-
-import ExperienceCanvas from "@/components/Experience/ExperienceCanvas.vue";
+import ExperienceSample2 from "@/components/Experience/Samples/ExperienceSample2.vue";
 </script>
 
 <style scoped>
