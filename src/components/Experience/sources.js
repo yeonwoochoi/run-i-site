@@ -7,7 +7,7 @@ export default [
   {
     name: "cameraModel",
     type: "gltfModel",
-    path: "src/assets/gltfs/Camera_01_4k.glb",
+    path: "src/assets/gltfs/Model1.glb",
   },
   {
     name: "testSkybox",
