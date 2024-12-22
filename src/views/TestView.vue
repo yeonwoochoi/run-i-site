@@ -1,12 +1,12 @@
 <template>
   <div>
-    <three-scene />
+    <ExperienceCanvas/>
   </div>
 </template>
 
 <script setup>
 
-import ThreeScene from "@/components/three/ThreeScene.vue";
+import ExperienceCanvas from "@/components/Experience/ExperienceCanvas.vue";
 </script>
 
 <style scoped>

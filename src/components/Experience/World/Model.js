@@ -96,7 +96,7 @@ export default class Model {
   }
 
   update() {
-    this.animation.mixer.update(this.time.delta * 0.001)
+    if (Object.keys(this.animation).length > 0) this.animation.mixer.update(this.time.delta * 0.001)
   }
 }
 

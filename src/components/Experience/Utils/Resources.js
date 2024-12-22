@@ -26,17 +26,41 @@ export default class Resources extends EventEmitter {
   startLoading() {
     for (const source of this.sources) {
       if (source.type === 'gltfModel') {
-        this.loaders.gltfLoader.load(source.path, (file) => {
-          this.sourceLoaded(source, file);
-        })
+        this.loaders.gltfLoader.load(
+          source.path,
+          (file) => {
+            console.log(`GLTF model loaded successfully: ${source.path}`);
+            this.sourceLoaded(source, file);
+          },
+          undefined,
+          (error) => {
+            console.error(`Failed to load GLTF model: ${source.path}`, error);
+          }
+        );
       } else if (source.type === "texture") {
-        this.loaders.textureLoader.load(source.path, (file) => {
-          this.sourceLoaded(source, file)
-        })
+        this.loaders.textureLoader.load(
+          source.path,
+          (file) => {
+            console.log(`Texture loaded successfully: ${source.path}`);
+            this.sourceLoaded(source, file);
+          },
+          undefined,
+          (error) => {
+            console.error(`Failed to load texture: ${source.path}`, error);
+          }
+        );
       } else if (source.type === "cubeTexture") {
-        this.loaders.cubeTextureLoader.load(source.path, (file) => {
-          this.sourceLoaded(source, file)
-        })
+        this.loaders.cubeTextureLoader.load(
+          source.path,
+          (file) => {
+            console.log(`Cube texture loaded successfully: ${source.path}`);
+            this.sourceLoaded(source, file);
+          },
+          undefined,
+          (error) => {
+            console.error(`Failed to load cube texture: ${source.path}`, error);
+          }
+        );
       }
     }
   }

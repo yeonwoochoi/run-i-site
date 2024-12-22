@@ -1,29 +1,35 @@
-import Stats from "three/examples/jsm/libs/stats.module"
+import StatsLibrary from 'stats.js';
 
 export default class Stats {
   constructor() {
-    this.active = window.location.hash === "#debug"
+    this.active = window.location.hash === "#debug";
 
     if (this.active) {
-      this.activate()
+      this.activate();
     }
   }
 
   activate() {
-    this.instance = new Stats();
+    this.instance = new StatsLibrary(); // StatsLibrary 사용
     this.instance.showPanel(0);
-    document.body.appendChild(this.instance.dom)
+    document.body.appendChild(this.instance.dom);
   }
 
   update() {
-    this.instance.update(); // 프레임 업데이트
+    if (this.instance) {
+      this.instance.update(); // 프레임 업데이트
+    }
   }
 
   beforeRender() {
-    this.instance.begin()
+    if (this.instance) {
+      this.instance.begin();
+    }
   }
 
   afterRender() {
-    this.instance.end();
+    if (this.instance) {
+      this.instance.end();
+    }
   }
 }

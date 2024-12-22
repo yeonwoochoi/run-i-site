@@ -6,6 +6,7 @@ import Time from './Utils/Time.js'
 import Camera from './Camera.js'
 import Renderer from './Renderer.js'
 import World from './World/World.js'
+import Light from './World/Light.js'
 import Resources from './Utils/Resources.js'
 import Stats from './Utils/Stats.js'
 
@@ -28,18 +29,24 @@ export default class Experience {
     this.canvas = _canvas
 
     /**Setup Classes */
+    this.scene = new THREE.Scene()
     this.debug = new Debug()
     this.sizes = new Sizes()
     this.time = new Time()
-    this.scene = new THREE.Scene()
     this.resources = new Resources(sources)
     this.camera = new Camera()
     this.renderer = new Renderer()
     this.world = new World()
     this.stats = new Stats()
+    this.light = new Light()
 
     this.sizes.on('resize', () => this.resize())
     this.time.on('tick', () => this.update())
+
+    this.light.createLight('AmbientLight', {
+      color: 0xffffff,
+      intensity: 0.5,
+    })
   }
 
   resize() {

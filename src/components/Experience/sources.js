@@ -2,16 +2,11 @@ export default [
   {
     name: "testMatcap",
     type: "texture",
-    path: "textures/matcap.png",
+    path: "src/assets/images/hero-sections/about.jpg",
   },
   {
     name: "cameraModel",
     type: "gltfModel",
     path: "src/assets/gltfs/Model1.glb",
-  },
-  {
-    name: "testSkybox",
-    type: "cubeTexture",
-    path: "src/assets/images/skybox/penguins/",
-  },
+  }
 ]
