@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="w-full min-h-screen relative overflow-hidden m-0 p-0">
     <section class="hero"><p>Scroll Down</p></section>
     <section class="sticky">
       <div class="col">
