@@ -95,7 +95,7 @@ onMounted(() => {
     start: "top top",
     end: "bottom center",
     scrub: true,
-    markers: true, // 디버깅을 위한 marker 추가 (필요시 제거)
+    // markers: true, // 디버깅을 위한 marker 추가 (필요시 제거)
   });
 });
 
