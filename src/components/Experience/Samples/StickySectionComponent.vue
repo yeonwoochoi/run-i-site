@@ -1,9 +1,5 @@
 <template>
   <div class="w-full min-h-screen relative overflow-hidden m-0 p-0 font-['TT_Hoves_Pro_Trial']">
-    <section class="relative w-screen h-screen flex justify-center items-end pb-16 bg-gray-300 bg-[url('./src/assets/images/sample1/hero.jpg')] bg-center bg-cover text-white">
-      <p>Scroll Down</p>
-    </section>
-
     <section ref="stickySection" class="relative w-screen h-screen flex md:flex-row flex-col">
       <div class="flex-1 flex flex-col justify-center items-center gap-8 md:pt-0 pt-1/4">
         <div class="relative flex flex-col items-center">
@@ -39,7 +35,7 @@
       <div class="absolute md:bottom-[10%] md:top-auto top-[5%] left-1/2 -translate-x-1/2 w-[60px] py-1 px-0.5 flex justify-between items-center bg-black text-white">
         <span ref="currentCount" class="font-['PP_NeueBit'] text-xl font-semibold w-3 flex justify-center items-center">1</span>
         <span class="relative -top-px w-5 h-0.5 bg-pink-500"></span>
-        <span class="font-['PP_NeueBit'] text-xl font-semibold w-3 flex justify-center items-center">8</span>
+        <span class="font-['PP_NeueBit'] text-xl font-semibold w-3 flex justify-center items-center">{{ services.length }}</span>
       </div>
     </section>
 
@@ -52,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
@@ -61,41 +57,19 @@ import SplitType from 'split-type'
 gsap.registerPlugin(ScrollTrigger)
 
 const services = [
-  'Deliverables',
-  'Brand & Event Design',
-  'Video & Fotographie',
-  'Motion Design',
-  '3D Graphics',
-  'Print & Drukwork',
-  'Digital Antwerp (UI/UX)',
-  'Web Development'
+  "웹 개발",
+  "모바일 앱 개발",
+  "데스크탑 애플리케이션 개발",
+  "인공지능 솔루션",
+  "데이터베이스 설계 및 관리"
 ]
 
 const servicesContents = [
-  [
-    "We transform your ideas into tangible results. Our deliverables are meticulously crafted to exceed expectations, ensuring every project milestone is met with precision and excellence. From concept to completion.",
-  ],
-  [
-    "Our brand and event design services create compelling visual identities that leave lasting impressions. We craft cohesive brand experiences and design engaging event spaces that tell your story, connect with your audience, and elevate your brand.",
-  ],
-  [
-    "Through expert videography and photography, we capture the essence of your brand. Our visual storytelling combines technical excellence with creative vision, delivering powerful imagery that resonates with your target audience.",
-  ],
-  [
-    "Our motion design expertise brings static concepts to life. We create dynamic visual experiences through animation, kinetic typography, and fluid transitions, ensuring your message not only reaches but captivates your audience in today's fast-paced landscape.",
-  ],
-  [
-    "We push creative boundaries with cutting-edge 3D graphics. Our team creates immersive visual experiences, from product visualization to architectural rendering, bringing depth and dimension to your projects with state-of-the-art modeling.",
-  ],
-  [
-    "Our print and drukwerk solutions combine traditional craftsmanship with modern innovation. We deliver premium quality printed materials that make a tangible impact, from business collateral to large-format displays, using sustainable materials.",
-  ],
-  [
-    "Through intuitive UI/UX design, we create digital experiences that delight users. Our approach combines aesthetic excellence with functional efficiency, ensuring every interaction is meaningful, accessible, and aligned with your business objectives.",
-  ],
-  [
-    "Our web development solutions leverage cutting-edge technologies to build robust, scalable digital platforms. We create responsive, performance-optimized websites and applications that provide seamless user experiences across all devices.",
-  ],
+  ["최신 프론트엔드와 백엔드 기술을 활용하여 반응형 웹사이트와 웹 애플리케이션을 설계하고 개발합니다."],
+  ["Flutter와 React Native를 기반으로 iOS와 Android 모두에서 원활하게 실행되는 크로스 플랫폼 애플리케이션을 제작합니다."],
+  ["WinForm, WPF, Electron 등을 활용하여 다양한 플랫폼에서 안정적으로 실행되는 데스크탑 애플리케이션을 개발합니다."],
+  ["LLM, 컴퓨터 비전 등 최신 AI 기술을 활용하여 맞춤형 솔루션을 제공하며, 데이터 기반 의사결정을 지원합니다."],
+  ["MySQL, MongoDB 등 SQL 및 NoSQL 데이터베이스를 설계, 최적화, 유지보수하여 안정적인 데이터 운영을 보장합니다."],
 ];
 
 const serviceImages = [
@@ -103,10 +77,7 @@ const serviceImages = [
   "/src/assets/images/sample1/img2.jpg",
   "/src/assets/images/sample1/img3.jpg",
   "/src/assets/images/sample1/img4.jpg",
-  "/src/assets/images/sample1/img5.jpg",
-  "/src/assets/images/sample1/img6.jpg",
-  "/src/assets/images/sample1/img7.jpg",
-  "/src/assets/images/sample1/img8.jpg"
+  "/src/assets/images/sample1/img5.jpg"
 ]
 
 const stickySection = ref(null)
@@ -115,6 +86,7 @@ const serviceImg = ref(null)
 const serviceCopy = ref(null)
 const currentCount = ref(null)
 const currentIndex = ref(0)
+let scrollTrigger = null;
 
 onMounted(() => {
   const lenis = new Lenis()
@@ -125,7 +97,7 @@ onMounted(() => {
 
   gsap.ticker.lagSmoothing(0)
 
-  const stickyHeight = window.innerHeight * 8
+  const stickyHeight = window.innerHeight * services.length
   const serviceHeight = 38
   const imgHeight = 250
 
@@ -149,7 +121,7 @@ onMounted(() => {
 
   const serviceWidths = services.map((service) => {
     measureContainer.textContent = service
-    return measureContainer.offsetWidth + 8
+    return measureContainer.offsetWidth + services.length
   })
 
   document.body.removeChild(measureContainer)
@@ -191,7 +163,7 @@ onMounted(() => {
     })
   }
 
-  ScrollTrigger.create({
+  scrollTrigger = ScrollTrigger.create({
     trigger: stickySection.value,
     start: 'top top',
     end: `${stickyHeight}px`,
@@ -235,6 +207,11 @@ onMounted(() => {
     }
   })
 })
+
+onUnmounted(() => {
+  // 페이지 떠날 때 ScrollTrigger 상태 초기화
+  scrollTrigger.kill();
+});
 </script>
 
 <style>

@@ -1,12 +1,12 @@
 <template>
   <HeroSection :image-src='imageSrc'>
     <template #title>
-      <h3 class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-3xl animate-fade-in-up">Tailored Solutions </h3>
-      <h1 class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-8xl animate-fade-in-up">Run-I Studio</h1>
-      <p class="mt-8 text-pretty text-lg font-medium text-gray-400 sm:text-xl/8">We Drive Your Vision Forward,</p>
-      <p class="text-pretty text-lg font-medium text-gray-400 sm:text-xl/8">Whatever It Is—from Web to AI.</p>
+<!--      <h1 class="logo text-balance font-semibold tracking-tight text-white sm:text-8xl">Run-I Studio</h1>-->
+<!--      <h3 class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-3xl animate-fade-in-up">Tailored Solutions </h3>-->
+      <p class="mt-8 text-pretty text-lg font-medium text-white sm:text-xl/8">We Drive Your Vision Forward,</p>
+      <p class="text-pretty text-lg font-medium text-white sm:text-xl/8">Whatever It Is—from Web to AI.</p>
       <div class="mt-10 flex items-center justify-center gap-x-6">
-        <router-link to="/contact" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">Get started</router-link>
+        <router-link to="/contact" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-gray-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">Get started</router-link>
         <router-link to="/about" class="text-sm/6 font-semibold text-white">About <span aria-hidden="true">→</span></router-link>
       </div>
     </template>
@@ -23,3 +23,6 @@ import HeroSection from './HeroSection.vue'
 
 const imageSrc = '/src/assets/images/hero-sections/home.jpg';
 </script>
+
+<style scoped>
+</style>

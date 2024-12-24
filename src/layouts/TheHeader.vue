@@ -8,6 +8,9 @@
             <img class='h-8 w-auto' :src="companyLogo" alt="Company Logo" />
           </router-link>
         </div>
+        <div class='fixed inset-x-0 top-7 flex items-center justify-center pointer-events-none'>
+          <p class='logo font-semibold text-black'>Run-I Studio</p>
+        </div>
         <div class='flex lg:hidden'>
           <button type='button' class='-m-2.5 inline-flex items-center justify-center rounded-md =-2.5' @click='mobileMenuOpen = true'>
             <span class='sr-only'>Open main menu</span>
@@ -19,14 +22,14 @@
             <span>{{ item.name }}</span>
           </router-link>
         </div>
-        <div class='hidden lg:flex lg:flex-1 lg:justify-end'>
-          <router-link to='/login' class='text-sm/6 font-semibold'>
-            Log in
-            <span aria-hidden='true'>
-            &rarr;
-          </span>
-          </router-link>
-        </div>
+<!--        <div class='hidden lg:flex lg:flex-1 lg:justify-end'>-->
+<!--          <router-link to='/login' class='text-sm/6 font-semibold'>-->
+<!--            Log in-->
+<!--            <span aria-hidden='true'>-->
+<!--            &rarr;-->
+<!--          </span>-->
+<!--          </router-link>-->
+<!--        </div>-->
       </nav>
     </header>
   </div>
@@ -34,9 +37,11 @@
 
 <script setup>
 import { useWindowScroll } from '@vueuse/core'
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -62,9 +67,53 @@ const navClass = computed(() => {
 // 회사 로고 이미지 경로 설정
 const companyLogo = computed(() => {
   return isScrolled.value
-    ? new URL('@/assets/images/logos/company-logo-no-bg.png', import.meta.url).href
+    ? new URL('@/assets/images/logos/company-logo-black.png', import.meta.url).href
     : new URL('@/assets/images/logos/company-logo-no-bg-white.png', import.meta.url).href;
 })
+
+const getAnimationSettings = () => {
+  if (window.innerWidth < 768) {
+    return { scale: 3, y: "40vh" };
+  } else if (window.innerWidth >= 768 && window.innerWidth < 1200) {
+    return { scale: 5, y: "37vh" };
+  } else {
+    return { scale: 6, y: "37vh" };
+  }
+};
+
+onMounted(() => {
+  ScrollTrigger.refresh();
+
+  // 애니메이션 설정
+  ScrollTrigger.create({
+    animation: gsap.from(".logo", {
+      ...getAnimationSettings(),
+      color: "white",
+    }),
+    trigger: ".hero-section",
+    endTrigger: ".hero-section",
+    start: "top top",
+    end: "bottom center",
+    scrub: true,
+    markers: true, // 디버깅을 위한 marker 추가 (필요시 제거)
+  });
+});
+
+// 브레이크포인트에 따라 애니메이션 크기 및 위치 변경
+const updateAnimation = () => {
+  const animationSettings = getAnimationSettings();
+  gsap.set(".logo", animationSettings);
+  ScrollTrigger.refresh(); // 화면 크기 변경 시 ScrollTrigger 다시 갱신
+};
+
+// 브레이크포인트에 따라 애니메이션 업데이트
+window.addEventListener("resize", updateAnimation);
+updateAnimation();
+
+onUnmounted(() => {
+  // 페이지 떠날 때 ScrollTrigger 상태 초기화
+  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+});
 </script>
 
 <style scoped>
@@ -73,7 +122,7 @@ header {
 }
 
 header.scrolled {
-  border-bottom: 1px solid rgba(100, 149, 237, 0.3); /* cornflowerblue 색의 희미한 구분선 */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3); /* cornflowerblue 색의 희미한 구분선 */
 }
 
 .header-bg-color {
@@ -83,6 +132,6 @@ header.scrolled {
 
 .header-bg-color-invert {
   background-color: white;
-  color: cornflowerblue;
+  color: black;
 }
 </style>
