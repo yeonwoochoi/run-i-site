@@ -1,40 +1,39 @@
 <template>
   <div class="w-full min-h-screen relative overflow-hidden m-0 p-0 font-['TT_Hoves_Pro_Trial']">
-    <section ref="stickySection" class="relative w-screen h-screen flex md:flex-row flex-col">
-      <div class="flex-1 flex flex-col justify-center items-center gap-8 md:pt-0 pt-1/4">
+    <section ref="stickySection" class="relative w-screen h-screen flex lg:flex-row flex-col py-[80px]">
+      <div class="flex-1 flex flex-col justify-center items-center gap-8 lg:pt-0 pt-1/4">
         <div class="relative flex flex-col items-center">
-          <div ref="indicator" class="absolute top-0 left-0 w-full h-[38px] bg-black -z-10"></div>
+          <div ref="indicator" class="absolute top-0 left-0 w-full h-[36px] md:h-[38px] bg-black -z-10"></div>
           <div v-for="(service, index) in services" :key="index"
                class="w-max h-[38px] transition-colors duration-300"
                :class="{ 'active': currentIndex === index }">
-            <p class="uppercase font-['PP_NeueBit'] text-[40px] font-semibold leading-9"
+            <p class="uppercase font-['PP_NeueBit'] text-[25px] md:text-[30px] font-semibold leading-9"
                :class="currentIndex === index ? 'text-white' : 'text-gray-300'">
               {{ service }}
             </p>
           </div>
         </div>
       </div>
-
-      <div class="flex-1 flex md:flex-col flex-row justify-center items-center gap-8">
-        <div class="relative md:w-3/5 w-1/4 h-[250px] overflow-hidden [clip-path:polygon(50%_0%,100%_0,100%_85%,90%_100%,50%_100%,0_100%,0_0)]">
+      <div class="flex-1 flex flex-col justify-center items-center px-10 min-h-0">
+        <div class="relative lg:w-3/5 w-full h-[250px] overflow-hidden [clip-path:polygon(50%_0%,100%_0,100%_85%,90%_100%,50%_100%,0_100%,0_0)]">
           <div ref="serviceImg" class="w-full h-[2000px] transform will-change-transform">
-            <div v-for="(path, index) in serviceImages" :key="index" class="w-full h-[250px]">
-              <img :src="path" alt="" class="w-full h-full object-cover" />
+            <div v-for="(path, index) in serviceImages" :key="index" class="w-full h-[250px] flex justify-center items-center">
+              <img :src="path" alt="" class="w-auto h-auto max-w-full max-h-full object-cotain" />
             </div>
           </div>
         </div>
-        <div class="md:w-3/5 w-full">
-          <p ref="serviceCopy" class="text-lg font-normal leading-7"></p>
+        <div class="lg:w-3/5 w-full mt-5">
+          <p ref="serviceCopy" class="text-base md:text-lg font-normal leading-7"></p>
         </div>
       </div>
 
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[2.5px] md:h-[60%] w-1/2 h-[2.5px] bg-gray-200 md:rotate-0 -rotate-90">
+      <div class="absolute top-[calc(50%-40px)] left-1/2 -translate-x-1/2 -translate-y-1/2 lg:w-[2.5px] lg:h-[60%] sm:h-[550px] h-[350px] w-[2.5px] bg-gray-200 lg:rotate-0 -rotate-90">
         <div class="progress absolute top-0 left-0 w-full h-full bg-black origin-top scale-y-0 will-change-transform"></div>
       </div>
 
-      <div class="absolute md:bottom-[10%] md:top-auto top-[5%] left-1/2 -translate-x-1/2 w-[60px] py-1 px-0.5 flex justify-between items-center bg-black text-white">
+      <div class="absolute lg:bottom-[10%] lg:top-auto top-[10%] left-1/2 -translate-x-1/2 w-[60px] py-1 px-0.5 flex justify-between items-center bg-black text-white">
         <span ref="currentCount" class="font-['PP_NeueBit'] text-xl font-semibold w-3 flex justify-center items-center">1</span>
-        <span class="relative -top-px w-5 h-0.5 bg-pink-500"></span>
+        <span class="relative -top-px w-5 h-0.5 bg-white"></span>
         <span class="font-['PP_NeueBit'] text-xl font-semibold w-3 flex justify-center items-center">{{ services.length }}</span>
       </div>
     </section>
@@ -73,11 +72,11 @@ const servicesContents = [
 ];
 
 const serviceImages = [
-  "/src/assets/images/sample1/img1.jpg",
-  "/src/assets/images/sample1/img2.jpg",
-  "/src/assets/images/sample1/img3.jpg",
-  "/src/assets/images/sample1/img4.jpg",
-  "/src/assets/images/sample1/img5.jpg"
+  "/src/assets/images/icons/icon_web.gif",
+  "/src/assets/images/icons/icon_mobile.gif",
+  "/src/assets/images/icons/icon_desktop.gif",
+  "/src/assets/images/icons/icon_AI.gif",
+  "/src/assets/images/icons/icon_database.gif"
 ]
 
 const stickySection = ref(null)

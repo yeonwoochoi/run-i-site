@@ -12,9 +12,19 @@
           <p class='logo font-semibold text-black'>Run-I Studio</p>
         </div>
         <div class='flex lg:hidden'>
-          <button type='button' class='-m-2.5 inline-flex items-center justify-center rounded-md =-2.5' @click='mobileMenuOpen = true'>
+          <button type='button' class='-m-2.5 inline-flex items-center justify-center rounded-md =-2.5'
+                  @click='mobileMenuOpen = !mobileMenuOpen'>
             <span class='sr-only'>Open main menu</span>
-            <Bars3Icon class='size-6' aria-hidden='true' />
+            <transition name="fade">
+
+              <!-- TODO : transition 안되고 아이콘 안보임 -->
+              <component
+                :is="mobileMenuOpen ? 'XMarkIcon' : 'Bars3Icon'"
+                class="size-6 transition-transform duration-300 transform"
+                :class="{ 'rotate-0': !mobileMenuOpen, 'rotate-180': mobileMenuOpen }"
+                aria-hidden="true"
+              />
+            </transition>
           </button>
         </div>
         <div class='hidden lg:flex lg:gap-x-12'>
@@ -22,16 +32,24 @@
             <span>{{ item.name }}</span>
           </router-link>
         </div>
-<!--        <div class='hidden lg:flex lg:flex-1 lg:justify-end'>-->
-<!--          <router-link to='/login' class='text-sm/6 font-semibold'>-->
-<!--            Log in-->
-<!--            <span aria-hidden='true'>-->
-<!--            &rarr;-->
-<!--          </span>-->
-<!--          </router-link>-->
-<!--        </div>-->
       </nav>
     </header>
+
+    <!-- TODO : z-index 문제 -->
+    <nav
+      v-if='isMobile && mobileMenuOpen'
+      class='fixed inset-0 bg-black bg-opacity-70'
+    >
+      <div class='h-full flex flex-col items-center justify-center -z-100'>
+        <ul class='text-white'>
+          <li v-for='(item, index) in navigation' :key='`mobile-menu-${index}`'>
+            <router-link :to='item.href' class='hover:text-gray-300'>
+              {{ item.name }}
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </div>
 </template>
 
@@ -44,13 +62,18 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Service', href: '/service' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Home', href: '/', current: true },
+  { name: 'About', href: '/about', current: false },
+  { name: 'Service', href: '/service', current: false },
+  { name: 'Contact', href: '/contact', current: false }
 ]
 
 const mobileMenuOpen = ref(false)
+
+const isMobile = computed(() => {
+  const width = window.innerWidth;
+  return width <= 1024; // Tailwind CSS의 sm: 기준
+});
 
 const { y } = useWindowScroll();
 
@@ -133,5 +156,13 @@ header.scrolled {
 .header-bg-color-invert {
   background-color: white;
   color: black;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
