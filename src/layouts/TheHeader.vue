@@ -15,16 +15,26 @@
           <button type='button' class='-m-2.5 inline-flex items-center justify-center rounded-md =-2.5'
                   @click='mobileMenuOpen = !mobileMenuOpen'>
             <span class='sr-only'>Open main menu</span>
-            <transition name="fade">
-
-              <!-- TODO : transition 안되고 아이콘 안보임 -->
-              <component
-                :is="mobileMenuOpen ? 'XMarkIcon' : 'Bars3Icon'"
-                class="size-6 transition-transform duration-300 transform"
-                :class="{ 'rotate-0': !mobileMenuOpen, 'rotate-180': mobileMenuOpen }"
-                aria-hidden="true"
-              />
-            </transition>
+            <div class="relative flex items-center justify-center">
+              <!-- Bars3Icon -->
+              <transition name="fade" mode="out-in">
+                <Bars3Icon
+                  v-if="!mobileMenuOpen"
+                  class="absolute w-6 h-6 text-white transition-transform duration-300 transform"
+                  :class="{ 'rotate-180 opacity-0': mobileMenuOpen, 'rotate-0 opacity-100': !mobileMenuOpen }"
+                  aria-hidden="true"
+                />
+              </transition>
+              <!-- XMarkIcon -->
+              <transition name="fade" mode="out-in">
+                <XMarkIcon
+                  v-if="mobileMenuOpen"
+                  class="absolute w-6 h-6 text-white transition-transform duration-300 transform"
+                  :class="{ 'rotate-0 opacity-100': mobileMenuOpen, 'rotate-180 opacity-0': !mobileMenuOpen }"
+                  aria-hidden="true"
+                />
+              </transition>
+            </div>
           </button>
         </div>
         <div class='hidden lg:flex lg:gap-x-12'>
@@ -158,11 +168,17 @@ header.scrolled {
   color: black;
 }
 
-.fade-enter-active, .fade-leave-active {
+/* Fade transition */
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.3s;
 }
-
-.fade-enter, .fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
+}
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
 }
 </style>
