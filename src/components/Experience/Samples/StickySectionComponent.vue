@@ -1,7 +1,7 @@
 <template>
   <div class="w-full min-h-screen relative overflow-hidden m-0 p-0 font-['TT_Hoves_Pro_Trial']">
-    <section ref="stickySection" class="relative w-screen h-screen flex lg:flex-row flex-col py-[80px]">
-      <div class="flex-1 flex flex-col justify-center items-center gap-8 lg:pt-0 pt-1/4">
+    <section ref='stickySection' class='relative w-screen h-screen flex lg:flex-row flex-col items-center py-[80px]'>
+      <div class="flex-1 flex flex-col justify-center items-center gap-8 pt-0 lg:block hidden">
         <div class="relative flex flex-col items-center">
           <div ref="indicator" class="absolute top-0 left-0 w-full h-[36px] md:h-[38px] bg-black -z-10"></div>
           <div v-for="(service, index) in services" :key="index"
@@ -14,9 +14,23 @@
           </div>
         </div>
       </div>
-      <div class="flex-1 flex flex-col justify-center items-center px-10 min-h-0">
+
+      <div class='flex flex-1 justify-center items-center gap-8 w-full max-w-[80%] max-h-[150px] pt-[100px] overflow-hidden lg:hidden block'>
+        <div ref='serviceMobileTab' class='flex space-x-4 overflow-x-auto scroll-smooth scrollbar-hide'>
+          <div
+            v-for='(service, index) in services'
+            :key='`service-scroll-${index}`'
+            class='uppercase font-[`PP_NeueBit`] text-[25px] md:text-[30px] font-semibold leading-9 whitespace-nowrap'
+            :class="currentIndex === index ? 'bg-black text-white' : 'bg-white text-black'"
+          >
+            {{ service }}
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-1 flex flex-col justify-center items-center lg:px-0 px-10">
         <div class="relative lg:w-3/5 w-full h-[250px] overflow-hidden [clip-path:polygon(50%_0%,100%_0,100%_85%,90%_100%,50%_100%,0_100%,0_0)]">
-          <div ref="serviceImg" class="w-full h-[2000px] transform will-change-transform">
+          <div ref="serviceImg" class="w-full transform will-change-transform">
             <div v-for="(path, index) in serviceImages" :key="index" class="w-full h-[250px] flex justify-center items-center">
               <img :src="path" alt="" class="w-auto h-auto max-w-full max-h-full object-cotain" />
             </div>
@@ -27,11 +41,19 @@
         </div>
       </div>
 
-      <div class="absolute top-[calc(50%-40px)] left-1/2 -translate-x-1/2 -translate-y-1/2 lg:w-[2.5px] lg:h-[60%] sm:h-[550px] h-[350px] w-[2.5px] bg-gray-200 lg:rotate-0 -rotate-90">
-        <div class="progress absolute top-0 left-0 w-full h-full bg-black origin-top scale-y-0 will-change-transform"></div>
+      <div class="absolute top-[calc(50%-40px)] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[2.5px] h-[60%] bg-gray-200 lg:block hidden">
+        <div class="progress1 absolute top-0 left-0 w-full h-full bg-black origin-top scale-y-0 will-change-transform"></div>
       </div>
 
-      <div class="absolute lg:bottom-[10%] lg:top-auto top-[10%] left-1/2 -translate-x-1/2 w-[60px] py-1 px-0.5 flex justify-between items-center bg-black text-white">
+      <div class="absolute top-[calc(81px)] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[2.5px] bg-gray-200 lg:hidden block">
+        <div class="progress2 absolute top-0 left-0 w-full h-full bg-black origin-left scale-x-0 will-change-transform"></div>
+      </div>
+
+<!--      <div class="absolute lg:top-[calc(50%-40px)] top-[calc(81px)] left-1/2 -translate-x-1/2 -translate-y-1/2 lg:w-[2.5px] lg:h-[60%] h-[100vh] w-[2.5px] bg-gray-200 lg:rotate-0 -rotate-90">-->
+<!--        <div class="progress absolute top-0 left-0 w-full h-full bg-black origin-top scale-y-0 will-change-transform"></div>-->
+<!--      </div>-->
+
+      <div class="absolute lg:bottom-[10%] lg:top-auto top-[90%] left-1/2 -translate-x-1/2 w-[60px] py-1 px-0.5 flex justify-between items-center bg-black text-white">
         <span ref="currentCount" class="font-['PP_NeueBit'] text-xl font-semibold w-3 flex justify-center items-center">1</span>
         <span class="relative -top-px w-5 h-0.5 bg-white"></span>
         <span class="font-['PP_NeueBit'] text-xl font-semibold w-3 flex justify-center items-center">{{ services.length }}</span>
@@ -85,7 +107,31 @@ const serviceImg = ref(null)
 const serviceCopy = ref(null)
 const currentCount = ref(null)
 const currentIndex = ref(0)
+const serviceMobileTab = ref(null);
+const scrollPosition = ref(0);
+
 let scrollTrigger = null;
+
+const scrollMobileTabItemToCenter = (index) => {
+  currentIndex.value = index;
+  const container = serviceMobileTab.value;
+
+  if (!container) {
+    return;
+  }
+
+  const tab = container.children[index];
+  const containerWidth = container.offsetWidth;
+  const tabWidth = tab.offsetWidth;
+  const scrollLeft = tab.offsetLeft - containerWidth / 2 + tabWidth / 2;
+
+  container.scrollTo({ left: scrollLeft, behavior: "smooth" })
+};
+
+// 스크롤 위치를 추적하는 함수
+const trackScrollPosition = () => {
+  scrollPosition.value = window.scrollY;
+};
 
 onMounted(() => {
   const lenis = new Lenis()
@@ -169,13 +215,15 @@ onMounted(() => {
     pin: true,
     onUpdate: async (self) => {
       const progress = self.progress
-      gsap.set('.progress', { scaleY: progress })
+      gsap.set('.progress1', { scaleY: progress })
+      gsap.set('.progress2', { scaleX: progress })
 
       const scrollPosition = Math.max(0, self.scroll() - window.innerHeight)
       const activeIndex = Math.floor(scrollPosition / window.innerHeight)
 
       if (activeIndex >= 0 && activeIndex < services.length && currentIndex.value !== activeIndex) {
         currentIndex.value = activeIndex
+        scrollMobileTabItemToCenter(activeIndex);
 
         await Promise.all([
           gsap.to(indicator.value, {
@@ -205,11 +253,15 @@ onMounted(() => {
       }
     }
   })
+
+  scrollMobileTabItemToCenter(0)
+  window.addEventListener('scroll', trackScrollPosition);
 })
 
 onUnmounted(() => {
   // 페이지 떠날 때 ScrollTrigger 상태 초기화
   scrollTrigger.kill();
+  window.removeEventListener('scroll', trackScrollPosition);
 });
 </script>
 
@@ -228,5 +280,9 @@ onUnmounted(() => {
 
 .lenis.lenis-smooth iframe {
   pointer-events: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 </style>
