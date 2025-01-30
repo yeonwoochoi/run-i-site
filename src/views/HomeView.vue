@@ -4,7 +4,7 @@
     <div class="content">
       <div class="w-full min-h-screen relative overflow-hidden m-0 p-0 font-['TT_Hoves_Pro_Trial']">
         <AboutSection class="aboutSection" />
-        <ServiceSection class="serviceSection" />
+<!--        <ServiceSection class="serviceSection" />-->
         <ContactSection class="contactSection" />
       </div>
     </div>
