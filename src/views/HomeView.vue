@@ -2,13 +2,13 @@
   <div>
     <HeroSectionHome/>
     <div class="content">
-      <ExperienceSample3/>
+      <StickySectionComponent/>
     </div>
   </div>
 </template>
 
 <script setup>
-import ExperienceSample3 from "../components/Experience/Samples/StickySectionComponent.vue";
+import StickySectionComponent from "../components/Experience/Samples/StickySectionComponent.vue";
 import HeroSectionHome from '../components/hero-section/HeroSectionHome.vue'
 </script>
 
