@@ -1,5 +1,5 @@
 <template>
-  <section class="serviceSection relative w-screen flex justify-center items-center">
+  <section class="relative w-screen flex justify-center items-center">
     <div class="my-12">
       <h1>Potfolio</h1>
     </div>
