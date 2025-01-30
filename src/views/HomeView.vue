@@ -1,11 +1,16 @@
 <template>
   <div>
-    <HomeHeroSection />
-    <h1>This is an main page</h1>
+    <HeroSectionHome/>
+    <div class="content">
+      <ExperienceSample3/>
+    </div>
   </div>
 </template>
 
 <script setup>
-import HomeHeroSection from '@/components/hero-section/HeroSectionHome.vue'
+import ExperienceSample3 from "../components/Experience/Samples/StickySectionComponent.vue";
+import HeroSectionHome from '../components/hero-section/HeroSectionHome.vue'
 </script>
 
+<style scoped>
+</style>

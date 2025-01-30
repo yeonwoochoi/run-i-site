@@ -56,10 +56,10 @@
       </div>
     </section>
 
-    <section class="relative w-screen h-screen flex justify-center items-center">
-      <div class="relative isolate bg-white w-full h-full">
+    <section class="relative w-screen flex justify-center items-center">
+      <div class="relative isolate bg-white w-full">
         <div class="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-          <div class="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
+          <div class="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-24">
             <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
               <div class="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-gray-100 ring-1 ring-gray-900/10 lg:w-1/2">
                 <svg class="absolute inset-0 size-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" aria-hidden="true">
@@ -102,7 +102,7 @@
               </dl>
             </div>
           </div>
-          <form action="#" method="POST" class="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48">
+          <form action="#" method="POST" class="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-24">
             <div class="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
               <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                 <div>
@@ -239,6 +239,7 @@ onMounted(() => {
     visibility: hidden;
     height: auto;
     width: auto;
+    max-width: 500px;
     white-space: nowrap;
     font-family: "PP NeueBit";
     font-size: 60px;
