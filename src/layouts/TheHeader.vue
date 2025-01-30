@@ -15,7 +15,7 @@
           <button
             type='button'
             class='-m-2.5 inline-flex items-center justify-center rounded-md isolate z-[9999]'
-            @click='mobileMenuOpen = !mobileMenuOpen'
+            @click='toggleMenu'
           >
             <span class='sr-only'>Open main menu</span>
             <div class="relative flex items-center justify-center">
@@ -41,28 +41,12 @@
           </button>
         </div>
         <div class='hidden lg:flex lg:gap-x-12'>
-          <router-link v-for='item in navigation' :key='item.name' :to='item.href' class='text-sm/6 font-semibold'>
+          <router-link v-for='item in navigation' :key='item.name' :to='item.path' class='text-sm/6 font-semibold'>
             <span>{{ item.name }}</span>
           </router-link>
         </div>
 
-        <!-- Navigation Menu -->
-        <transition name="fade" mode="out-in">
-          <nav
-            v-if='isMobile && mobileMenuOpen'
-            class='fixed inset-0 bg-black bg-opacity-100 isolate z-[101]'
-          >
-            <div class='h-full flex flex-col items-center justify-center'>
-              <ul class='text-white'>
-                <li v-for='(item, index) in navigation' :key='`mobile-menu-${index}`'>
-                  <router-link :to='item.href' @click="mobileMenuOpen = false" class='hover:text-gray-300'>
-                    {{ item.name }}
-                  </router-link>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </transition>
+        <NavigationMenu v-model:isMenuOpen="mobileMenuOpen" :menuItem="navigation" />
       </div>
     </header>
   </div>
@@ -75,20 +59,16 @@ import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import NavigationMenu from "@/components/menu/NavigationMenu.vue";
 
 const navigation = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'About', href: '/about', current: false },
-  { name: 'Service', href: '/service', current: false },
-  { name: 'Contact', href: '/contact', current: false }
+  { name: 'Home', path: '/', current: true },
+  { name: 'About', path: '/about', current: false },
+  { name: 'Service', path: '/service', current: false },
+  { name: 'Contact', path: '/contact', current: false }
 ]
 
 const mobileMenuOpen = ref(false)
-
-const isMobile = computed(() => {
-  const width = window.innerWidth;
-  return width <= 1024; // Tailwind CSS의 sm: 기준
-});
 
 const { y } = useWindowScroll();
 
@@ -108,6 +88,10 @@ const companyLogo = computed(() => {
     ? new URL('@/assets/images/logos/company-logo-black.png', import.meta.url).href
     : new URL('@/assets/images/logos/company-logo-no-bg-white.png', import.meta.url).href;
 })
+
+const toggleMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value
+}
 
 // const getAnimationSettings = () => {
 //   if (window.innerWidth < 768) {
