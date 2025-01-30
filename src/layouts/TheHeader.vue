@@ -1,27 +1,30 @@
 <template>
   <div>
     <header :class="{'scrolled': isScrolled, [navClass]: true}" class='fixed inset-x-0 h-auto top-0 z-50 trasition-colors'>
-      <nav class='flex items-center justify-between p-6 lg:px-8' aria-label='Global'>
+      <div class='flex items-center justify-between p-6 lg:px-8' aria-label='Global'>
         <div class='flex lg:flex-1'>
           <router-link to="/" class='-m-1.5 p-1.5'>
             <span class='sr-only'>About</span>
             <img class='h-8 w-auto' :src="companyLogo" alt="Company Logo" />
           </router-link>
         </div>
-        <div class='fixed inset-x-0 top-7 flex items-center justify-center pointer-events-none'>
-          <p class='logo font-semibold text-black'>Run-I Studio</p>
-        </div>
-        <div class='flex lg:hidden'>
-          <button type='button' class='-m-2.5 inline-flex items-center justify-center rounded-md =-2.5'
-                  @click='mobileMenuOpen = !mobileMenuOpen'>
+<!--        <div class='fixed inset-x-0 top-7 flex items-center justify-center pointer-events-none'>-->
+<!--          <p class='logo font-semibold text-black'>Run-I Studio</p>-->
+<!--        </div>-->
+        <div class='flex relative lg:hidden'>
+          <button
+            type='button'
+            class='-m-2.5 inline-flex items-center justify-center rounded-md isolate z-[9999]'
+            @click='mobileMenuOpen = !mobileMenuOpen'
+          >
             <span class='sr-only'>Open main menu</span>
             <div class="relative flex items-center justify-center">
               <!-- Bars3Icon -->
               <transition name="fade" mode="out-in">
                 <Bars3Icon
                   v-if="!mobileMenuOpen"
-                  class="absolute w-6 h-6 text-white transition-transform duration-300 transform"
-                  :class="{ 'rotate-180 opacity-0': mobileMenuOpen, 'rotate-0 opacity-100': !mobileMenuOpen }"
+                  class="absolute w-6 h-6 transition-transform duration-300 transform"
+                  :class="{ 'rotate-180 opacity-0': mobileMenuOpen, 'rotate-0 opacity-100': !mobileMenuOpen, 'text-white': !isScrolled || mobileMenuOpen, 'text-black': isScrolled && !mobileMenuOpen }"
                   aria-hidden="true"
                 />
               </transition>
@@ -29,8 +32,8 @@
               <transition name="fade" mode="out-in">
                 <XMarkIcon
                   v-if="mobileMenuOpen"
-                  class="absolute w-6 h-6 text-white transition-transform duration-300 transform"
-                  :class="{ 'rotate-0 opacity-100': mobileMenuOpen, 'rotate-180 opacity-0': !mobileMenuOpen }"
+                  class="absolute w-6 h-6 transition-transform duration-300 transform"
+                  :class="{ 'rotate-0 opacity-100': mobileMenuOpen, 'rotate-180 opacity-0': !mobileMenuOpen, 'text-white' : !isScrolled || mobileMenuOpen, 'text-black': isScrolled && !mobileMenuOpen }"
                   aria-hidden="true"
                 />
               </transition>
@@ -42,24 +45,26 @@
             <span>{{ item.name }}</span>
           </router-link>
         </div>
-      </nav>
-    </header>
 
-    <!-- TODO : z-index 문제 -->
-    <nav
-      v-if='isMobile && mobileMenuOpen'
-      class='fixed inset-0 bg-black bg-opacity-70'
-    >
-      <div class='h-full flex flex-col items-center justify-center -z-100'>
-        <ul class='text-white'>
-          <li v-for='(item, index) in navigation' :key='`mobile-menu-${index}`'>
-            <router-link :to='item.href' class='hover:text-gray-300'>
-              {{ item.name }}
-            </router-link>
-          </li>
-        </ul>
+        <!-- Navigation Menu -->
+        <transition name="fade" mode="out-in">
+          <nav
+            v-if='isMobile && mobileMenuOpen'
+            class='fixed inset-0 bg-black bg-opacity-100 isolate z-[101]'
+          >
+            <div class='h-full flex flex-col items-center justify-center'>
+              <ul class='text-white'>
+                <li v-for='(item, index) in navigation' :key='`mobile-menu-${index}`'>
+                  <router-link :to='item.href' @click="mobileMenuOpen = false" class='hover:text-gray-300'>
+                    {{ item.name }}
+                  </router-link>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </transition>
       </div>
-    </nav>
+    </header>
   </div>
 </template>
 
@@ -104,49 +109,49 @@ const companyLogo = computed(() => {
     : new URL('@/assets/images/logos/company-logo-no-bg-white.png', import.meta.url).href;
 })
 
-const getAnimationSettings = () => {
-  if (window.innerWidth < 768) {
-    return { scale: 3, y: "40vh" };
-  } else if (window.innerWidth >= 768 && window.innerWidth < 1200) {
-    return { scale: 5, y: "37vh" };
-  } else {
-    return { scale: 6, y: "37vh" };
-  }
-};
-
-onMounted(() => {
-  ScrollTrigger.refresh();
-
-  // 애니메이션 설정
-  ScrollTrigger.create({
-    animation: gsap.from(".logo", {
-      ...getAnimationSettings(),
-      color: "white",
-    }),
-    trigger: ".hero-section",
-    endTrigger: ".hero-section",
-    start: "top top",
-    end: "bottom center",
-    scrub: true,
-    // markers: true, // 디버깅을 위한 marker 추가 (필요시 제거)
-  });
-});
-
-// 브레이크포인트에 따라 애니메이션 크기 및 위치 변경
-const updateAnimation = () => {
-  const animationSettings = getAnimationSettings();
-  gsap.set(".logo", animationSettings);
-  ScrollTrigger.refresh(); // 화면 크기 변경 시 ScrollTrigger 다시 갱신
-};
-
-// 브레이크포인트에 따라 애니메이션 업데이트
-window.addEventListener("resize", updateAnimation);
-updateAnimation();
-
-onUnmounted(() => {
-  // 페이지 떠날 때 ScrollTrigger 상태 초기화
-  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-});
+// const getAnimationSettings = () => {
+//   if (window.innerWidth < 768) {
+//     return { scale: 3, y: "40vh" };
+//   } else if (window.innerWidth >= 768 && window.innerWidth < 1200) {
+//     return { scale: 5, y: "37vh" };
+//   } else {
+//     return { scale: 6, y: "37vh" };
+//   }
+// };
+//
+// onMounted(() => {
+//   ScrollTrigger.refresh();
+//
+//   // 애니메이션 설정
+//   ScrollTrigger.create({
+//     animation: gsap.from(".logo", {
+//       ...getAnimationSettings(),
+//       color: "white",
+//     }),
+//     trigger: ".hero-section",
+//     endTrigger: ".hero-section",
+//     start: "top top",
+//     end: "bottom center",
+//     scrub: true,
+//     // markers: true, // 디버깅을 위한 marker 추가 (필요시 제거)
+//   });
+// });
+//
+// // 브레이크포인트에 따라 애니메이션 크기 및 위치 변경
+// const updateAnimation = () => {
+//   const animationSettings = getAnimationSettings();
+//   gsap.set(".logo", animationSettings);
+//   ScrollTrigger.refresh(); // 화면 크기 변경 시 ScrollTrigger 다시 갱신
+// };
+//
+// // 브레이크포인트에 따라 애니메이션 업데이트
+// window.addEventListener("resize", updateAnimation);
+// updateAnimation();
+//
+// onUnmounted(() => {
+//   // 페이지 떠날 때 ScrollTrigger 상태 초기화
+//   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+// });
 </script>
 
 <style scoped>
