@@ -162,7 +162,8 @@ const services = [
   "모바일 앱 개발",
   "데스크탑 애플리케이션 개발",
   "인공지능 솔루션",
-  "데이터베이스 설계 및 관리"
+  "데이터베이스 설계 및 관리",
+  "유니티 게임 개발"
 ]
 
 const servicesContents = [
@@ -171,6 +172,7 @@ const servicesContents = [
   ["WinForm, WPF, Electron 등을 활용하여 다양한 플랫폼에서 안정적으로 실행되는 데스크탑 애플리케이션을 개발합니다."],
   ["LLM, 컴퓨터 비전 등 최신 AI 기술을 활용하여 맞춤형 솔루션을 제공하며, 데이터 기반 의사결정을 지원합니다."],
   ["MySQL, MongoDB 등 SQL 및 NoSQL 데이터베이스를 설계, 최적화, 유지보수하여 안정적인 데이터 운영을 보장합니다."],
+  ["Unity 엔진을 활용하여 2D 및 3D 게임을 개발하고, 다양한 플랫폼에 최적화된 게임을 제공합니다."]
 ];
 
 const serviceImages = [
@@ -178,7 +180,8 @@ const serviceImages = [
   "/src/assets/images/icons/icon_mobile.gif",
   "/src/assets/images/icons/icon_desktop.gif",
   "/src/assets/images/icons/icon_AI.gif",
-  "/src/assets/images/icons/icon_database.gif"
+  "/src/assets/images/icons/icon_database.gif",
+  "/src/assets/images/icons/icon_game.gif"
 ]
 
 const stickySection = ref(null)
