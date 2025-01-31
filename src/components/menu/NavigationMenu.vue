@@ -10,9 +10,9 @@
       <!-- Menu Links -->
       <div class="menu-copy">
         <div class="menu-links">
-          <div v-for="(link, index) in menuItem" :key="index" class="menu-link-item">
+          <div v-for="(item, index) in menuItem" :key="index" class="menu-link-item">
             <div class="menu-link-item-holder" @click="toggleMenu">
-              <router-link class="menu-link" :to="link.path">{{ link.name }}</router-link>
+              <a class="menu-link cursor-pointer" @click.prevent='scrollToSection(item.path)'>{{ item.name }}</a>
             </div>
           </div>
         </div>
@@ -49,9 +49,11 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, defineProps, defineEmits } from 'vue';
+import { ref, watch, onMounted, defineProps, defineEmits } from 'vue'
 import { useRouter } from 'vue-router';
 import { gsap } from 'gsap';
+import { useScrollToSection } from '../../composables/useScrollToSection'
+const { scrollToSection } = useScrollToSection()
 
 const props = defineProps({
   isMenuOpen: {

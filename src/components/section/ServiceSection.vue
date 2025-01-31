@@ -1,7 +1,7 @@
 <template>
-  <section class='relative w-screen flex flex-col justify-center items-center pt-20 pb-40 bg-[#f1f1f1]'>
+  <section ref='serviceSection' class='relative w-screen flex flex-col justify-center items-center pt-20 pb-40 bg-[#f1f1f1]'>
     <div class='my-12'>
-      <p class='font-bold text-5xl'>Potfolio</p>
+      <p class='font-bold text-5xl'>포트폴리오</p>
     </div>
     <div class='relative w-full h-[570px] max-w-full flex flex-row justify-center overflow-hidden mx-auto mt-20'>
       <div
@@ -64,8 +64,14 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { onMounted, ref, inject } from 'vue'
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/vue/24/solid'
+
+const emitter = inject('emitter')
+const serviceSection = ref(null)
+onMounted(() => {
+  emitter.emit('service-section', serviceSection.value);
+})
 
 const services = [
   {
@@ -106,10 +112,6 @@ const moveToNextSlide = () => {
   if (currentIndex.value + 1 >= services.length) return
   currentIndex.value++
 }
-
-const sliderWidth = computed(() => {
-  return window.innerWidth <= 540 ? window.innerWidth : 350
-})
 </script>
 
 <style scoped>

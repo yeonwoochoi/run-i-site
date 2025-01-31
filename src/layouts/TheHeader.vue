@@ -3,10 +3,10 @@
     <header :class="{'scrolled': isScrolled, [navClass]: true}" class='fixed inset-x-0 h-auto top-0 z-50 trasition-colors'>
       <div class='flex items-center justify-between p-6 lg:px-8' aria-label='Global'>
         <div class='flex lg:flex-1'>
-          <router-link to="/" class='-m-1.5 p-1.5'>
+          <div @click.prevent='scrollToSection("homeSection")' class='cursor-pointer -m-1.5 p-1.5'>
             <span class='sr-only'>About</span>
             <img class='h-8 w-auto' :src="companyLogo" alt="Company Logo" />
-          </router-link>
+          </div>
         </div>
 <!--        <div class='fixed inset-x-0 top-7 flex items-center justify-center pointer-events-none'>-->
 <!--          <p class='logo font-semibold text-black'>Run-I Studio</p>-->
@@ -41,9 +41,14 @@
           </button>
         </div>
         <div class='hidden lg:flex lg:gap-x-12'>
-          <router-link v-for='item in navigation' :key='item.name' :to='item.path' class='text-sm/6 font-semibold'>
+          <div
+            v-for="item in navigation"
+            :key="item.name"
+            @click.prevent="scrollToSection(item.path)"
+            class="text-sm/6 font-semibold cursor-pointer"
+          >
             <span>{{ item.name }}</span>
-          </router-link>
+          </div>
         </div>
 
         <NavigationMenu v-model:isMenuOpen="mobileMenuOpen" :menuItem="navigation" />
@@ -60,12 +65,14 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import NavigationMenu from "@/components/menu/NavigationMenu.vue";
+import { useScrollToSection } from '../composables/useScrollToSection'
+const { scrollToSection } = useScrollToSection()
 
 const navigation = [
-  { name: 'Home', path: '/', current: true },
-  { name: 'About', path: '/about', current: false },
-  { name: 'Service', path: '/service', current: false },
-  { name: 'Contact', path: '/contact', current: false }
+  { name: 'Home', path: 'homeSection' },
+  { name: 'About', path: 'aboutSection' },
+  { name: 'Service', path: 'serviceSection' },
+  { name: 'Contact', path: 'contactSection' }
 ]
 
 const mobileMenuOpen = ref(false)

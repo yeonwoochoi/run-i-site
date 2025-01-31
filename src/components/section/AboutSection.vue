@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, inject } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
@@ -92,6 +92,7 @@ const aboutImages = [
   "/src/assets/images/icons/icon_game.gif"
 ]
 
+const emitter = inject('emitter')
 const aboutSection = ref(null)
 const indicator = ref(null)
 const aboutImg = ref(null)
@@ -125,6 +126,8 @@ const trackScrollPosition = () => {
 };
 
 onMounted(() => {
+  emitter.emit('about-section', aboutSection.value);
+
   const lenis = new Lenis()
   lenis.on('scroll', ScrollTrigger.update)
   gsap.ticker.add((time) => {

@@ -10,6 +10,7 @@ import { MotionPlugin } from '@vueuse/motion'
 
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -18,7 +19,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // GSAP 플러그인 등록
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // 플러그인으로 추가
 const gsapPlugin = {
@@ -27,8 +28,13 @@ const gsapPlugin = {
     app.config.globalProperties.$scrollTrigger = ScrollTrigger;
   }
 };
-
 const app = createApp(App);
+
+// Add mitt
+import mitt from "mitt";
+const emitter = mitt();
+app.config.globalProperties.emitter = emitter;
+app.provide("emitter", emitter);
 
 app.use(createPinia());
 app.use(router);

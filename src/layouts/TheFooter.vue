@@ -2,8 +2,8 @@
   <footer class='bg-gray-900'>
     <div class='mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8'>
       <nav class='-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm/6' aria-label='Footer'>
-        <a v-for='item in navigation.main' :key='item.name' :href='item.href'
-           class='text-gray-400 hover:text-white'>{{ item.name }}</a>
+        <div v-for='item in navigation.main' :key='item.name' @click.prevent="scrollToSection(item.href)"
+           class='text-gray-400 hover:text-white cursor-pointer'>{{ item.name }}</div>
       </nav>
 <!--      <div class='mt-16 flex justify-center gap-x-10'>-->
 <!--        <a v-for='item in navigation.social' :key='item.name' :href='item.href'-->
@@ -18,14 +18,15 @@
 </template>
 
 <script setup>
-import { defineComponent, h } from 'vue'
+import { useScrollToSection } from '../composables/useScrollToSection'
+const { scrollToSection } = useScrollToSection()
 
 const navigation = {
   main: [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Service', href: '/service' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Home', href: 'homeSection' },
+    { name: 'About', href: 'aboutSection' },
+    { name: 'Service', href: 'serviceSection' },
+    { name: 'Contact', href: 'contactSection' },
   ],
   // social: [
   //   {
