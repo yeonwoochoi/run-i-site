@@ -23,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // 플러그인으로 추가
 const gsapPlugin = {
-  install(app) {
+  install(app: any) {
     app.config.globalProperties.$gsap = gsap;
     app.config.globalProperties.$scrollTrigger = ScrollTrigger;
   }

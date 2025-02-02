@@ -71,7 +71,7 @@ const aboutTitles = [
   "데스크탑 애플리케이션 개발",
   "인공지능 솔루션",
   "데이터베이스 설계 및 관리",
-  "유니티 앱 개발"
+  "유니티 2D 앱/게임 개발"
 ]
 
 const aboutContents = [
