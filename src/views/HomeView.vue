@@ -15,7 +15,7 @@
 import AboutSection from "@/components/section/AboutSection.vue";
 import ServiceSection from "@/components/section/ServiceSection.vue";
 import ContactSection from "@/components/section/ContactSection.vue";
-import HeroSectionHome from '../components/hero-section/HeroSectionHome.vue'
+import HeroSectionHome from '@/components/hero-section/HeroSectionHome.vue'
 </script>
 
 <style scoped>

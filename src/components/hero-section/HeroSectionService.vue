@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import HeroSection from './HeroSection.vue'
+import HeroSection from "@/components/hero-section/HeroSection.vue";
 
 const imageSrc = '/src/assets/images/hero-sections/service.jpg';
 </script>

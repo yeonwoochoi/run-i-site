@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import ScrollToTopButton from '../components/button/ScrollToTopButton.vue'
+import ScrollToTopButton from '@/components/button/ScrollToTopButton.vue'
 </script>
 
 <style scoped>

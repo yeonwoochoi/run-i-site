@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { useScrollToSection } from '../composables/useScrollToSection'
+import { useScrollToSection } from '@/composables/useScrollToSection'
 const { scrollToSection } = useScrollToSection()
 
 const navigation = {

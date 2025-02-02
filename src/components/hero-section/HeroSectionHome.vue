@@ -30,7 +30,7 @@
 <script setup>
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import HeroSection from './HeroSection.vue'
+import HeroSection from "@/components/hero-section/HeroSection.vue";
 import {onMounted, onUnmounted} from "vue";
 
 const imageSrc = '/src/assets/images/hero-sections/home.jpg';

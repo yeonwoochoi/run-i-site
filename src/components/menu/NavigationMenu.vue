@@ -52,7 +52,7 @@
 import { ref, watch, onMounted, defineProps, defineEmits } from 'vue'
 import { useRouter } from 'vue-router';
 import { gsap } from 'gsap';
-import { useScrollToSection } from '../../composables/useScrollToSection'
+import { useScrollToSection } from '@/composables/useScrollToSection'
 const { scrollToSection } = useScrollToSection()
 
 const props = defineProps({

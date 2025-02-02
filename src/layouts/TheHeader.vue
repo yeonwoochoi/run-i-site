@@ -59,13 +59,14 @@
 
 <script setup>
 import { useWindowScroll } from '@vueuse/core'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+// import { onMounted, onUnmounted, watch } from 'vue'
+// import gsap from "gsap";
+// import ScrollTrigger from "gsap/ScrollTrigger";
 import NavigationMenu from "@/components/menu/NavigationMenu.vue";
-import { useScrollToSection } from '../composables/useScrollToSection'
+import { useScrollToSection } from '@/composables/useScrollToSection'
 const { scrollToSection } = useScrollToSection()
 
 const navigation = [
