@@ -6,13 +6,13 @@
       <p class="text-pretty text-lg font-medium text-white sm:text-xl/8 mt-2 sm:mt-4">We Drive Your Vision Forward,</p>
       <p class="text-pretty text-lg font-medium text-white sm:text-xl/8">Whatever It Is—from Web to AI.</p>
       <div class="mt-10 flex items-center justify-center gap-x-6">
-        <router-link to="/contact" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-gray-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
-          Get started
-        </router-link>
-        <router-link to="/about" class="text-sm/6 font-semibold text-white">
-          About
-          <span aria-hidden="true">→</span>
-        </router-link>
+<!--        <router-link to="/contact" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-gray-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">-->
+<!--          Get started-->
+<!--        </router-link>-->
+<!--        <router-link to="/about" class="text-sm/6 font-semibold text-white">-->
+<!--          About-->
+<!--          <span aria-hidden="true">→</span>-->
+<!--        </router-link>-->
       </div>
     </template>
     <template #footer>
