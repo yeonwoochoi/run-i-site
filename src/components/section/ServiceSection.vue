@@ -73,29 +73,34 @@ onMounted(() => {
   emitter.emit('service-section', serviceSection.value);
 })
 
+import aboutImage from '@/assets/images/hero-sections/about.jpg';
+import serviceImage from '@/assets/images/hero-sections/service.jpg';
+import contactImage from '@/assets/images/hero-sections/contact.jpg';
+
 const services = [
   {
     title: 'Vada Partners',
     tech: ['Nuxt.js', 'Vuetify', 'SpringBoot'],
     description: '특허청과 연동된 기술 특허 가치 평가 기업의 웹사이트',
     link: '/',
-    image: '/src/assets/images/hero-sections/about.jpg'
+    image: aboutImage
   },
   {
     title: 'Kunsan University AI Lab',
     tech: ['Nuxt.js', 'Vuetify', 'SpringBoot'],
     description: '군산대학교 AI 연구실 웹사이트',
     link: '/',
-    image: '/src/assets/images/hero-sections/service.jpg'
+    image: serviceImage
   },
   {
-    title: 'Jopanda\'s 수학문제은행',
+    title: "Jopanda's 수학문제은행",
     tech: ['Unity'],
     description: '9만+ 개 중국 수학 문제를 랜덤 추출·커스텀할 수 있는 수학문제은행 앱',
     link: '/',
-    image: '/src/assets/images/hero-sections/contact.jpg'
+    image: contactImage
   }
-]
+];
+
 
 const currentIndex = ref(0)
 

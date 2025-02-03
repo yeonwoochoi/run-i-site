@@ -1,5 +1,5 @@
 <template>
-  <HeroSection :image-src='imageSrc'>
+  <HeroSection :image-src='homeImage'>
     <template #title>
       <h1 class="logo isolate z-100 text-balance font-semibold tracking-tight text-white text-5xl sm:text-7xl">Run-I Studio</h1>
       <!--      <h3 class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-3xl animate-fade-in-up">Tailored Solutions </h3>-->
@@ -32,8 +32,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import HeroSection from "@/components/hero-section/HeroSection.vue";
 import {onMounted, onUnmounted} from "vue";
-
-const imageSrc = '/src/assets/images/hero-sections/home.jpg';
+import homeImage from "@/assets/images/hero-sections/home.jpg";
 
 onMounted(() => {
   ScrollTrigger.refresh();

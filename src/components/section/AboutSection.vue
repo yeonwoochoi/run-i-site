@@ -83,14 +83,14 @@ const aboutContents = [
   ["Unity 엔진을 활용하여 앱 및 2D 게임을 개발하고, 다양한 플랫폼에 최적화된 게임을 제공합니다."]
 ];
 
-const aboutImages = [
-  "/src/assets/images/icons/icon_web.gif",
-  "/src/assets/images/icons/icon_mobile.gif",
-  "/src/assets/images/icons/icon_desktop.gif",
-  "/src/assets/images/icons/icon_AI.gif",
-  "/src/assets/images/icons/icon_database.gif",
-  "/src/assets/images/icons/icon_game.gif"
-]
+import iconWeb from '@/assets/images/icons/icon_web.gif';
+import iconMobile from '@/assets/images/icons/icon_mobile.gif';
+import iconDesktop from '@/assets/images/icons/icon_desktop.gif';
+import iconAI from '@/assets/images/icons/icon_AI.gif';
+import iconDatabase from '@/assets/images/icons/icon_database.gif';
+import iconGame from '@/assets/images/icons/icon_game.gif';
+
+const aboutImages = [iconWeb, iconMobile, iconDesktop, iconAI, iconDatabase, iconGame];
 
 const emitter = inject('emitter')
 const aboutSection = ref(null)

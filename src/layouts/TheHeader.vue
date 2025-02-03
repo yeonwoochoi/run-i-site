@@ -91,11 +91,10 @@ const navClass = computed(() => {
 })
 
 // 회사 로고 이미지 경로 설정
-const companyLogo = computed(() => {
-  return isScrolled.value
-    ? new URL('@/assets/images/logos/company-logo-black.png', import.meta.url).href
-    : new URL('@/assets/images/logos/company-logo-no-bg-white.png', import.meta.url).href;
-})
+import logoBlack from '@/assets/images/logos/company-logo-black.png';
+import logoWhite from '@/assets/images/logos/company-logo-no-bg-white.png';
+
+const companyLogo = computed(() => (isScrolled.value ? logoBlack : logoWhite));
 
 const toggleMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value

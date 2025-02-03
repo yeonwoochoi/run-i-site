@@ -1,9 +1,8 @@
 <template>
-  <HeroSection :image-src='imageSrc' />
+  <HeroSection :image-src="aboutImage" />
 </template>
 
 <script setup>
 import HeroSection from "@/components/hero-section/HeroSection.vue";
-
-const imageSrc = '/src/assets/images/hero-sections/about.jpg';
+import aboutImage from "@/assets/images/hero-sections/about.jpg";
 </script>
