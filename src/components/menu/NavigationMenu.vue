@@ -22,9 +22,9 @@
           <div class="menu-info-col">
             <a class="hover:text-gray-200" href="https://github.com/yeonwoochoi/run-i-site" target="_blank">Github &#8599;</a>
             <a class="hover:text-gray-200" href="https://www.youtube.com/@old_kingdoms_in_korea" target="_blank">Youtube &#8599;</a>
-            <a class="hover:text-gray-200" href="/" target="_blank">Instagram &#8599;</a>
-            <a class="hover:text-gray-200" href="/" target="_blank">LinkedIn &#8599;</a>
-            <a class="hover:text-gray-200" href="/" target="_blank">Dribbble &#8599;</a>
+            <a class="hover:text-gray-200" target="_blank">Instagram &#8599;</a>
+            <a class="hover:text-gray-200" target="_blank">LinkedIn &#8599;</a>
+            <a class="hover:text-gray-200" target="_blank">Dribbble &#8599;</a>
           </div>
           <div class="menu-info-col">
             <dd>
