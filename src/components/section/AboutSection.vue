@@ -6,7 +6,7 @@
         <div v-for="(title, index) in aboutTitles" :key='`about-scroll-desktop-${index}`'
              class="w-max h-[38px] transition-colors duration-300"
              :class="{ 'active': currentIndex === index }">
-          <p class="uppercase font-['PP_NeueBit'] text-[25px] md:text-[30px] font-semibold leading-9"
+          <p class="uppercase text-[25px] md:text-[30px] font-semibold leading-9"
              :class="currentIndex === index ? 'text-white' : 'text-gray-300'">
             {{ title }}
           </p>
@@ -19,7 +19,7 @@
         <div
           v-for='(title, index) in aboutTitles'
           :key='`about-scroll-mobile-${index}`'
-          class='uppercase font-[`PP_NeueBit`] text-[25px] md:text-[30px] font-semibold leading-9 whitespace-nowrap'
+          class='uppercase text-[25px] md:text-[30px] font-semibold leading-9 whitespace-nowrap'
           :class="currentIndex === index ? 'bg-black text-white' : 'bg-white text-black'"
         >
           {{ title }}
@@ -49,9 +49,9 @@
     </div>
 
     <div class="absolute lg:bottom-[10%] lg:top-auto top-[90%] left-1/2 -translate-x-1/2 w-[60px] py-1 px-0.5 flex justify-between items-center bg-black text-white">
-      <span ref="currentCount" class="font-['PP_NeueBit'] text-xl font-semibold w-3 flex justify-center items-center">1</span>
+      <span ref="currentCount" class="text-xl font-semibold w-3 flex justify-center items-center">1</span>
       <span class="relative -top-px w-5 h-0.5 bg-white"></span>
-      <span class="font-['PP_NeueBit'] text-xl font-semibold w-3 flex justify-center items-center">{{ aboutTitles.length }}</span>
+      <span class="text-xl font-semibold w-3 flex justify-center items-center">{{ aboutTitles.length }}</span>
     </div>
   </section>
 </template>
@@ -152,7 +152,6 @@ onMounted(() => {
     width: auto;
     max-width: 500px;
     white-space: nowrap;
-    font-family: "PP NeueBit";
     font-size: 60px;
     font-weight: 600;
     text-transform: uppercase;
