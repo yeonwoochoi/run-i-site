@@ -3,7 +3,7 @@
     <header :class="{'scrolled': isScrolled, [navClass]: true}" class='fixed inset-x-0 h-auto top-0 z-50 trasition-colors'>
       <div class='flex items-center justify-between p-6 lg:px-8' aria-label='Global'>
         <div class='flex lg:flex-1'>
-          <div @click.prevent='scrollToSection("homeSection")' class='cursor-pointer -m-1.5 p-1.5'>
+          <div @click.prevent='onClickAppBarButton("homeSection")' class='cursor-pointer -m-1.5 p-1.5'>
             <span class='sr-only'>About</span>
             <img class='h-8 w-auto' :src="companyLogo" alt="Company Logo" />
           </div>
@@ -44,7 +44,7 @@
           <div
             v-for="item in navigation"
             :key="item.name"
-            @click.prevent="scrollToSection(item.path)"
+            @click.prevent="onClickAppBarButton(item.path)"
             class="text-sm/6 font-semibold cursor-pointer"
           >
             <span>{{ item.name }}</span>
@@ -67,6 +67,9 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 // import ScrollTrigger from "gsap/ScrollTrigger";
 import NavigationMenu from "@/components/menu/NavigationMenu.vue";
 import { useScrollToSection } from '@/composables/useScrollToSection'
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 const { scrollToSection } = useScrollToSection()
 
 const navigation = [
@@ -98,6 +101,15 @@ const companyLogo = computed(() => (isScrolled.value ? logoBlack : logoWhite));
 
 const toggleMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value
+}
+
+const onClickAppBarButton = (sectionName) => {
+  if (window.location.pathname !== '/') {
+    router.push('/');
+  }
+  else {
+    scrollToSection(sectionName);
+  }
 }
 
 // const getAnimationSettings = () => {

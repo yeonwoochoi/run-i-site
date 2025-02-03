@@ -12,7 +12,7 @@
         <div class="menu-links">
           <div v-for="(item, index) in menuItem" :key="index" class="menu-link-item">
             <div class="menu-link-item-holder" @click="toggleMenu">
-              <a class="menu-link cursor-pointer" @click.prevent='scrollToSection(item.path)'>{{ item.name }}</a>
+              <a class="menu-link cursor-pointer" @click.prevent='onClickNavigationButton(item.path)'>{{ item.name }}</a>
             </div>
           </div>
         </div>
@@ -74,6 +74,15 @@ const router = useRouter();
 const onClickCompanyLogo = () => {
   router.push('/')
   toggleMenu()
+}
+
+const onClickNavigationButton = (sectionName) => {
+  if (window.location.pathname !== '/') {
+    router.push('/');
+  }
+  else {
+    scrollToSection(sectionName);
+  }
 }
 
 // Timeline for GSAP animations

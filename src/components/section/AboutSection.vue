@@ -31,7 +31,7 @@
       <div class="relative lg:w-3/5 w-full h-[250px] overflow-hidden [clip-path:polygon(50%_0%,100%_0,100%_85%,90%_100%,50%_100%,0_100%,0_0)]">
         <div ref="aboutImg" class="w-full transform will-change-transform">
           <div v-for="(path, index) in aboutImages" :key="index" class="w-full h-[250px] flex justify-center items-center">
-            <img :src="path" alt="" class="w-auto h-auto max-w-full max-h-full object-cotain" />
+            <img :src="path" alt="" class="w-auto h-auto max-w-full max-h-full object-contain" />
           </div>
         </div>
       </div>
@@ -105,12 +105,13 @@ const scrollPosition = ref(0);
 let scrollTrigger = null;
 
 const scrollMobileTabItemToCenter = (index) => {
-  currentIndex.value = index;
   const container = aboutMobileTab.value;
 
   if (!container) {
     return;
   }
+
+  currentIndex.value = index;
 
   const tab = container.children[index];
   const containerWidth = container.offsetWidth;
@@ -216,7 +217,6 @@ onMounted(() => {
       const activeIndex = Math.floor(scrollPosition / window.innerHeight)
 
       if (activeIndex >= 0 && activeIndex < aboutTitles.length && currentIndex.value !== activeIndex) {
-        currentIndex.value = activeIndex
         scrollMobileTabItemToCenter(activeIndex);
 
         await Promise.all([
