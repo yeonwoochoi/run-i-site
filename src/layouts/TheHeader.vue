@@ -74,8 +74,8 @@ const { scrollToSection } = useScrollToSection()
 
 const navigation = [
   { name: 'Home', path: 'homeSection' },
-  { name: 'About', path: 'aboutSection' },
   { name: 'Service', path: 'serviceSection' },
+  { name: 'Portfolio', path: 'portfolioSection' },
   { name: 'Contact', path: 'contactSection' }
 ]
 

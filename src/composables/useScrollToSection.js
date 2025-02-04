@@ -4,18 +4,18 @@ export function useScrollToSection() {
   const emitter = inject('emitter')
 
   const sections = {
-    aboutSection: ref(null),
     serviceSection: ref(null),
+    portfolioSection: ref(null),
     contactSection: ref(null),
   }
 
   onMounted(() => {
     // 이벤트 받기
-    emitter.on('about-section', (targetSection) => {
-      if (targetSection) sections.aboutSection.value = targetSection
-    })
     emitter.on('service-section', (targetSection) => {
       if (targetSection) sections.serviceSection.value = targetSection
+    })
+    emitter.on('portfolios-section', (targetSection) => {
+      if (targetSection) sections.portfolioSection.value = targetSection
     })
     emitter.on('contact-section', (targetSection) => {
       if (targetSection) sections.contactSection.value = targetSection
