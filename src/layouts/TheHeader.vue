@@ -14,7 +14,7 @@
         <div class='flex relative lg:hidden'>
           <button
             type='button'
-            class='-m-2.5 inline-flex items-center justify-center rounded-md isolate z-[9999]'
+            class='-m-2.5 inline-flex items-center justify-center rounded-md isolate z-[9000]'
             @click='toggleMenu'
           >
             <span class='sr-only'>Open main menu</span>
@@ -59,7 +59,7 @@
 
 <script setup>
 import { useWindowScroll } from '@vueuse/core'
-import { computed, ref } from 'vue'
+import { computed, ref, inject } from 'vue'
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 // import { onMounted, onUnmounted, watch } from 'vue'
@@ -103,13 +103,16 @@ const toggleMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value
 }
 
+const useTransition = inject('useTransition')
 const onClickAppBarButton = (sectionName) => {
-  if (window.location.pathname !== '/') {
-    router.push('/');
-  }
-  else {
-    scrollToSection(sectionName);
-  }
+  useTransition(() => {
+    if (window.location.pathname !== '/') {
+      router.push('/');
+    }
+    else {
+      scrollToSection(sectionName);
+    }
+  })
 }
 
 // const getAnimationSettings = () => {

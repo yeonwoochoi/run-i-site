@@ -2,7 +2,7 @@
   <footer class='bg-gray-900'>
     <div class='mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8'>
       <nav class='-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm/6' aria-label='Footer'>
-        <div v-for='item in navigation.main' :key='item.name' @click.prevent="onClickFooterButton(item.href)"
+        <div v-for='item in navigation.main' :key='`footer-navigation-main-${item.name}`' @click.prevent="onClickFooterButton(item.path)"
            class='text-gray-400 hover:text-white cursor-pointer'>{{ item.name }}</div>
       </nav>
 <!--      <div class='mt-16 flex justify-center gap-x-10'>-->
@@ -19,17 +19,17 @@
 
 <script setup>
 import { useScrollToSection } from '@/composables/useScrollToSection'
-const { scrollToSection } = useScrollToSection()
 import { useRouter } from 'vue-router';
+import { inject } from 'vue'
 
 const router = useRouter()
 
 const navigation = {
   main: [
-    { name: 'Home', href: 'homeSection' },
-    { name: 'About', href: 'aboutSection' },
-    { name: 'Service', href: 'serviceSection' },
-    { name: 'Contact', href: 'contactSection' },
+    { name: 'Home', path: 'homeSection' },
+    { name: 'About', path: 'aboutSection' },
+    { name: 'Service', path: 'serviceSection' },
+    { name: 'Contact', path: 'contactSection' }
   ],
   // social: [
   //   {
@@ -102,13 +102,16 @@ const navigation = {
   //   }
   // ]
 }
-
+const useTransition = inject('useTransition')
+const { scrollToSection } = useScrollToSection()
 const onClickFooterButton = (sectionName) => {
-  if (window.location.pathname !== '/') {
-    router.push('/');
-  }
-  else {
-    scrollToSection(sectionName);
-  }
+  useTransition(() => {
+    if (window.location.pathname !== '/') {
+      router.push('/');
+    }
+    else {
+      scrollToSection(sectionName);
+    }
+  })
 }
 </script>

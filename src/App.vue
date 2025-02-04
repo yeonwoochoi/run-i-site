@@ -2,11 +2,12 @@
   <LoadingScreen v-show='loading' />
   <div class='flex flex-col justify-between min-h-screen'>
     <TheHeader />
-    <div class="flex-grow"> <!-- Main content area -->
+    <div class='flex-grow'> <!-- Main content area -->
       <TheView />
     </div>
     <TheFooter />
   </div>
+  <FadeTransition ref="fadeTransitionRef" />
 </template>
 
 <script setup>
@@ -32,6 +33,3 @@ provide('useTransition', (callback) => {
   fadeTransitionRef.value?.startTransition(callback);
 });
 </script>
-
-<style scoped>
-</style>

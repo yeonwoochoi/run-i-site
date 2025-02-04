@@ -28,11 +28,11 @@ export function useScrollToSection() {
     if (sectionKey === 'homeSection') {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: 'instant'
       })
     }
     else if (section && section.value) {
-      section.value.scrollIntoView({ behavior: 'smooth' });
+      section.value.scrollIntoView({ behavior: 'instant' });
     }
   };
 
