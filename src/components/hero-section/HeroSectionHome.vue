@@ -1,7 +1,12 @@
 <template>
   <HeroSection :image-src='homeImage'>
     <template #title>
-      <h1 class="logo isolate z-100 text-balance font-semibold tracking-tight text-white text-5xl sm:text-7xl">Run-I Studio</h1>
+      <div class="relative overflow-visible">
+        <h1 class="logo z-[200] font-bold text-white text-5xl sm:text-7xl">
+          Run-I Studio
+        </h1>
+      </div>
+
       <!--      <h3 class="text-balance text-5xl font-semibold tracking-tight text-white sm:text-3xl animate-fade-in-up">Tailored Solutions </h3>-->
       <p class="text-pretty text-lg font-medium text-white sm:text-xl/8 mt-2 sm:mt-4">We Drive Your Vision Forward,</p>
       <p class="text-pretty text-lg font-medium text-white sm:text-xl/8">Whatever It Is—from Web to AI.</p>
@@ -37,18 +42,61 @@ import homeImage from "@/assets/images/hero-sections/home.jpg";
 onMounted(() => {
   ScrollTrigger.refresh();
 
-  // 애니메이션 설정: .logo가 스크롤을 따라 이동하고, 5px에서 고정되도록 설정
-  ScrollTrigger.create({
-    animation: gsap.fromTo(".logo",
-      { scale: 1, y: "0vh", color: "white" },
-      { scale: 0.5, y: "5px", color: "black" }
-    ),
-    trigger: ".hero-section",
-    start: "top top",   // hero-section이 상단에 닿을 때 시작
-    end: "bottom center",  // hero-section이 중간에 닿을 때 끝
-    scrub: true,
-    // markers: true,  // 디버깅을 위한 marker 추가 (필요시 제거)
-  });
+  // gsap.fromTo(".logo",
+  //   { scale: 1, y: "0vh", color: "white" },
+  //   {
+  //     scale: 0.3,
+  //     y: "5px",
+  //     color: "black",
+  //     scrollTrigger: {
+  //       trigger: ".hero-section",
+  //       start: "top top",
+  //       end: () => `${window.innerHeight/2 - 65}`,
+  //       pin: ".logo",  // 스크롤이 끝나면 요소를 고정
+  //       pinSpacing: false,
+  //       scrub: true,
+  //       markers: false, // 디버깅용
+  //     }
+  //   }
+  // );
+
+  gsap.fromTo(".logo",
+    { scale: 1, y: "0vh", color: "white" },
+    {
+      scale: 0.3,
+      y: "5px", // 최종적으로 5px 아래로 이동
+      color: "black",
+      scrollTrigger: {
+        trigger: ".hero-section",
+        start: "top top", // 화면 상단에서 시작
+        end: "+=100%", // 전체 화면 높이만큼 스크롤
+        pin: ".logo", // 스크롤 중간에 고정
+        pinSpacing: false,
+        scrub: true, // 부드러운 스크롤 애니메이션
+        markers: false, // 디버깅용
+        onUpdate: (self) => {
+          // 스크롤 중간에 로고를 화면 상단 중앙에 고정
+          if (self.progress > 0.35) {
+            gsap.set(".logo", {
+              position: "fixed",
+              top: "5px", // 화면 상단에서 5px 아래
+              left: "50%",
+              transform: "translateX(-50%) scale(0.3)", // 중앙 정렬 및 스케일 조정
+            });
+            console.log("fix")
+          } else {
+            gsap.set(".logo", {
+              position: "relative",
+              top: "auto",
+              left: "auto",
+              transform: "translateX(0) scale(1)",
+            });
+            console.log("relative")
+          }
+        },
+      }
+    }
+  );
 });
 
 onUnmounted(() => {
