@@ -75,11 +75,13 @@ onMounted(() => {
         scrub: true, // 부드러운 스크롤 애니메이션
         markers: false, // 디버깅용
         onUpdate: (self) => {
+          const isSmallScreen = window.innerWidth <= 640;
+
           // 스크롤 중간에 로고를 화면 상단 중앙에 고정
           if (self.progress > 0.35) {
             gsap.set(".logo", {
               position: "fixed",
-              top: "5px", // 화면 상단에서 5px 아래
+              top: isSmallScreen ? "15px" : "5px", // sm 기준에 따라 top 값 설정
               left: "50%",
               transform: "translateX(-50%) scale(0.3)", // 중앙 정렬 및 스케일 조정
             });
