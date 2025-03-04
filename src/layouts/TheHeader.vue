@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header :class="{'scrolled': isScrolled, [navClass]: true}" class='fixed inset-x-0 h-auto top-0 z-50 trasition-colors'>
+    <header :class="{'scrolled': isScrolled, [navClass]: true}" class='fixed inset-x-0 h-auto top-0 trasition-colors' :style='{ zIndex: headerZIndex }'>
       <div class='flex items-center justify-between p-6 lg:px-8' aria-label='Global'>
         <div class='flex lg:flex-1'>
           <div @click.prevent='onClickAppBarButton("homeSection")' class='cursor-pointer -m-1.5 p-1.5'>
@@ -51,7 +51,7 @@
           </div>
         </div>
 
-        <NavigationMenu v-model:isMenuOpen="mobileMenuOpen" :menuItem="navigation" />
+        <NavigationMenu v-model:isMenuOpen="mobileMenuOpen" :menuItem="navigation" @animationFinished="handleAnimationFinished" />
       </div>
     </header>
   </div>
@@ -68,6 +68,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import NavigationMenu from "@/components/menu/NavigationMenu.vue";
 import { useScrollToSection } from '@/composables/useScrollToSection'
 import { useRouter } from 'vue-router';
+import { useNavbarStore } from '../stores/navbar'
 
 const router = useRouter()
 const { scrollToSection } = useScrollToSection()
@@ -79,7 +80,13 @@ const navigation = [
   { name: 'Contact', path: 'contactSection' }
 ]
 
-const mobileMenuOpen = ref(false)
+const navbarStore = useNavbarStore()
+const mobileMenuOpen = computed(() => navbarStore.isOpen)
+
+const headerZIndex = ref(50)
+const handleAnimationFinished = (isOpen) => {
+  headerZIndex.value = isOpen ? 200 : 50
+}
 
 const { y } = useWindowScroll();
 
@@ -100,7 +107,7 @@ import logoWhite from '@/assets/images/logos/company-logo-no-bg-white.png';
 const companyLogo = computed(() => (isScrolled.value ? logoBlack : logoWhite));
 
 const toggleMenu = () => {
-  mobileMenuOpen.value = !mobileMenuOpen.value
+  navbarStore.toggleNavbar();
 }
 
 const useTransition = inject('useTransition')

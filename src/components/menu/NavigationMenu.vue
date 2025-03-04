@@ -65,7 +65,7 @@ const props = defineProps({
     default: []
   }
 })
-const emit = defineEmits(['update:isMenuOpen']);
+const emit = defineEmits(['update:isMenuOpen', 'animationFinished']);
 const toggleMenu = () => {
   emit('update:isMenuOpen', !props.isMenuOpen);
 }
@@ -104,7 +104,13 @@ onMounted(() => {
       stagger: 0.08,  // 애니메이션을 순차적으로 실행, 각 요소 간의 시간 간격 0.08초
       ease: 'power2.out',  // easing 함수: 애니메이션 끝에 부드럽게 마무리
       delay: -0.5,  // 이전 애니메이션에서 0.5초 전부터 시작 (0.5초 빠르게 시작)
-    });
+    })
+    .eventCallback('onComplete', () => {
+      emit('animationFinished', true)
+    })
+    .eventCallback('onReverseComplete', () => {
+      emit('animationFinished', false)
+    })
 });
 
 // Watch for menu open state changes

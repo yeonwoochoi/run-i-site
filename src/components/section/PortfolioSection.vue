@@ -74,7 +74,7 @@ onMounted(() => {
 })
 
 import vadaImage from '@/assets/images/portfolios/vada.png';
-import kunsanImage from '@/assets/images/hero-sections/service.jpg';
+import kunsanImage from '@/assets/images/hero-sections/privacy-policy.jpg';
 import jopandaImage from '@/assets/images/portfolios/joPanda.png';
 
 const portfolios = [

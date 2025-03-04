@@ -2,7 +2,7 @@
   <HeroSection :image-src='homeImage'>
     <template #title>
       <div class="relative overflow-visible">
-        <h1 class="logo z-[200] font-bold text-white text-5xl sm:text-7xl">
+        <h1 class="logo z-[100] font-bold text-white text-5xl sm:text-7xl">
           Run-I Studio
         </h1>
       </div>
@@ -36,7 +36,7 @@
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import HeroSection from "@/components/hero-section/HeroSection.vue";
-import {onMounted, onUnmounted} from "vue";
+import { computed, onMounted, onUnmounted } from 'vue'
 import homeImage from "@/assets/images/hero-sections/home.jpg";
 
 onMounted(() => {
@@ -85,7 +85,6 @@ onMounted(() => {
               left: "50%",
               transform: "translateX(-50%) scale(0.3)", // 중앙 정렬 및 스케일 조정
             });
-            console.log("fix")
           } else {
             gsap.set(".logo", {
               position: "relative",
@@ -93,7 +92,6 @@ onMounted(() => {
               left: "auto",
               transform: "translateX(0) scale(1)",
             });
-            console.log("relative")
           }
         },
       }

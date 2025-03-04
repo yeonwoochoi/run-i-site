@@ -4,5 +4,5 @@
 
 <script setup>
 import HeroSection from "@/components/hero-section/HeroSection.vue";
-import aboutImage from "@/assets/images/hero-sections/service.jpg";
+import aboutImage from "@/assets/images/hero-sections/privacy-policy.jpg";
 </script>
