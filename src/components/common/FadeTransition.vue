@@ -36,8 +36,8 @@ const startTransition = (callback) => {
     callback?.()
     setTimeout(() => {
       isTransitioning.value = false;
-    }, 500); // 3. Fade out 시간
-  }, 1000); // 2. 애니메이션 시작 후 1초후 콜백 시작
+    }, 250); // 3. Fade out 시간
+  }, 500); // 2. 애니메이션 시작 후 0.5초후 콜백 시작
 };
 
 defineExpose({ startTransition });
@@ -59,12 +59,12 @@ svg {
 }
 
 .hideTopTransition {
-  animation: hideTopTransition ease-in 1s;
+  animation: hideTopTransition ease-in 0.5s;
   animation-fill-mode: forwards;
 }
 
 .showTopTransition {
-  animation: showTopTransition ease-in 1s;
+  animation: showTopTransition ease-in 0.5s;
   animation-fill-mode: forwards;
 }
 
