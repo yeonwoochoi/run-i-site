@@ -1,28 +1,89 @@
 <template>
-  <footer class='bg-gray-900'>
-    <div class='mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8'>
-      <nav class='-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm/6' aria-label='Footer'>
-        <div v-for='item in navigation.main' :key='`footer-navigation-main-${item.name}`' @click.prevent="goToPage(item.path)"
-           class='text-gray-400 hover:text-white cursor-pointer'>{{ item.name }}</div>
-      </nav>
-      <div class='mt-16 flex justify-center gap-x-10'>
-        <a v-for='item in navigation.social' :key='item.name' :href='item.path' target="_blank"
-           class='text-gray-400 hover:text-gray-300'>
-          <span class='sr-only'>{{ item.name }}</span>
-          <component :is='item.icon' class='size-6' aria-hidden='true' />
-        </a>
+  <footer class="bg-gray-900">
+    <div class="mx-auto max-w-7xl overflow-hidden px-6 pb-16 pt-16 lg:px-8 lg:pt-14 lg:pb-14">
+
+      <!-- Logo and Social Links -->
+      <div class="flex items-center justify-between pb-4 mb-4 lg:mb-8 lg:pb-8" style="box-shadow: white 0px 0.1px 0px;">
+        <div>
+          <img class="h-8 w-auto" :src="companyLogo" alt="Company Logo" />
+        </div>
+        <div class="hidden lg:flex gap-x-10">
+          <a v-for="item in navigation.social" :key="item.name" :href="item.path" target="_blank"
+             class="text-gray-400 hover:text-gray-300">
+            <span class="sr-only">{{ item.name }}</span>
+            <component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
+          </a>
+        </div>
       </div>
-      <p class='mt-10 text-center text-sm/6 text-gray-400'>&copy; 2024 Your Company, Inc. All rights reserved.</p>
+
+      <!-- Footer Navigation -->
+      <nav class="flex flex-wrap gap-x-6 gap-y-3 font-medium mb-8">
+        <div
+          v-for="item in navigation.main"
+          :key="'footer-navigation-main-' + item.name"
+          @click.prevent="goToPage(item.path)"
+          class="cursor-pointer text-gray-200 hover:text-white">
+          {{ item.name }}
+        </div>
+      </nav>
+
+      <!-- Company Info (Address, Phone, Email) -->
+      <div>
+        <dl class="mt-4 space-y-2 text-sm/4">
+          <div class="flex gap-x-4">
+            <dt class="flex-none">
+              <span class="sr-only">사업자 등록번호</span>
+              <BuildingOffice2Icon class="h-4 w-4 text-gray-600 hover:text-gray-500" aria-hidden="true" />
+            </dt>
+            <dd @click.prevent="copyToClipboard(companyNumber)" class="cursor-pointer text-gray-600 hover:text-gray-500">
+              {{ `사업자 등록번호: ${companyNumber}` }}</dd>
+          </div>
+          <div class="flex gap-x-4">
+            <dt class="flex-none">
+              <span class="sr-only">주소</span>
+              <MapIcon class="h-4 w-4 text-gray-600 hover:text-gray-500" aria-hidden="true" />
+            </dt>
+            <dd @click.prevent="copyToClipboard(companyAddress)" class="cursor-pointer text-gray-600 hover:text-gray-500">
+              {{ `주소: ${companyAddress}` }}</dd>
+          </div>
+          <div class="flex gap-x-4">
+            <dt class="flex-none">
+              <span class="sr-only">전화번호</span>
+              <PhoneIcon class="h-4 w-4 text-gray-600 hover:text-gray-500" aria-hidden="true" />
+            </dt>
+            <dd><a href="#" @click.prevent="copyToClipboard(companyPhone)" class="text-gray-600 hover:text-gray-500">{{ `연락처: ${companyPhone}` }}</a></dd>
+          </div>
+          <div class="flex gap-x-4">
+            <dt class="flex-none">
+              <span class="sr-only">이메일</span>
+              <EnvelopeIcon class="h-4 w-4 text-gray-600 hover:text-gray-500" aria-hidden="true" />
+            </dt>
+            <dd><a :href="`mailto:${companyEmail}`" class="text-gray-600 hover:text-gray-500">{{ `이메일: ${companyEmail}` }}</a></dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Copyright -->
+      <div class="mt-6">
+        <p class="text-sm text-gray-600">&copy; {{ year }} Run-i Studio, Inc. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 </template>
 
 <script setup>
+import { MapIcon, BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from '@heroicons/vue/24/outline';
 import { useScrollToSection } from '@/composables/useScrollToSection'
 import { useRouter } from 'vue-router';
-import { defineComponent, inject, h } from 'vue'
+import { defineComponent, inject, h, computed } from 'vue'
+import { useCompanyStore } from "../stores/useCompanyStore.ts";
 
+const year = computed(() => new Date().getFullYear())
 const router = useRouter()
+const { companyNumber, companyEmail, companyAddress, companyPhone, copyToClipboard } = useCompanyStore();
+
+import logoWhite from '@/assets/images/logos/company-logo-no-bg-white.png';
+const companyLogo = logoWhite;
 
 const navigation = {
   main: [
@@ -103,6 +164,7 @@ const navigation = {
 }
 const useTransition = inject('useTransition')
 const { scrollToSection } = useScrollToSection()
+
 const onClickFooterButton = (sectionName) => {
   useTransition(() => {
     if (window.location.pathname !== '/') {

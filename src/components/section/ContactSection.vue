@@ -24,24 +24,33 @@
               <dl class="mt-10 space-y-4 text-base/7 text-gray-600">
                 <div class="flex gap-x-4">
                   <dt class="flex-none">
-                    <span class="sr-only">주소</span>
+                    <span class="sr-only">사업자 등록번호</span>
                     <BuildingOffice2Icon class="h-7 w-6 text-gray-400" aria-hidden="true" />
                   </dt>
-                  <dd @click.prevent="copyToClipboard('전북특별자치도 전주시 완산구 서신천변2길 3-3')" class="cursor-pointer hover:text-gray-900">전북특별자치도 전주시 완산구<br />서신천변2길 3-3</dd>
+                  <dd @click.prevent="copyToClipboard(companyNumber)" class="cursor-pointer hover:text-gray-900">
+                    {{ companyNumber }}</dd>
+                </div>
+                <div class="flex gap-x-4">
+                  <dt class="flex-none">
+                    <span class="sr-only">주소</span>
+                    <MapIcon class="h-7 w-6 text-gray-400" aria-hidden="true" />
+                  </dt>
+                  <dd @click.prevent="copyToClipboard(companyAddress)" class="cursor-pointer hover:text-gray-900">
+                    {{ companyAddress }}</dd>
                 </div>
                 <div class="flex gap-x-4">
                   <dt class="flex-none">
                     <span class="sr-only">전화번호</span>
                     <PhoneIcon class="h-7 w-6 text-gray-400" aria-hidden="true" />
                   </dt>
-                  <dd><a class="hover:text-gray-900" href="#" @click.prevent="copyToClipboard('+82 010-8560-3465')">+82 010-8560-3465</a></dd>
+                  <dd><a class="hover:text-gray-900" href="#" @click.prevent="copyToClipboard(companyPhone)">{{ companyPhone }}</a></dd>
                 </div>
                 <div class="flex gap-x-4">
                   <dt class="flex-none">
                     <span class="sr-only">이메일</span>
                     <EnvelopeIcon class="h-7 w-6 text-gray-400" aria-hidden="true" />
                   </dt>
-                  <dd><a class="hover:text-gray-900" href="mailto:runi.studio.kr@google.com">runi.studio.kr@google.com</a></dd>
+                  <dd><a class="hover:text-gray-900" :href="`mailto:${companyEmail}`">{{ companyEmail }}</a></dd>
                 </div>
               </dl>
             </div>
@@ -92,8 +101,9 @@
 </template>
 
 <script setup>
-import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from '@heroicons/vue/24/outline'
+import { MapIcon, BuildingOffice2Icon, EnvelopeIcon, PhoneIcon } from '@heroicons/vue/24/outline'
 import { onMounted, inject, ref } from 'vue'
+import { useCompanyStore } from "../../stores/useCompanyStore.ts";
 
 const emitter = inject('emitter')
 const contactSection = ref(null)
@@ -101,15 +111,7 @@ onMounted(() => {
   emitter.emit('contact-section', contactSection.value);
 })
 
-const copyToClipboard = async (text) => {
-  try {
-    await navigator.clipboard.writeText(text)
-    alert(`텍스트가 복사되었습니다: ${text}`)
-  }
-  catch (e) {
-    alert("복사 실패: " + e);
-  }
-}
+const { companyNumber, companyAddress, companyPhone, companyEmail, copyToClipboard } = useCompanyStore()
 </script>
 
 <style scoped>

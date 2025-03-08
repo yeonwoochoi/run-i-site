@@ -68,7 +68,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import NavigationMenu from "@/components/menu/NavigationMenu.vue";
 import { useScrollToSection } from '@/composables/useScrollToSection'
 import { useRouter } from 'vue-router';
-import { useNavbarStore } from '../stores/navbar'
+import { useNavbarStore } from '../stores/useNavbarStore.ts'
 
 const router = useRouter()
 const { scrollToSection } = useScrollToSection()

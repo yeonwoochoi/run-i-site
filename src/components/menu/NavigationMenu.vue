@@ -28,10 +28,10 @@
           </div>
           <div class="menu-info-col">
             <dd>
-              <a class="hover:text-gray-200" href="mailto:runi.studio.kr@google.com">runi.studio.kr@google.com</a>
+              <a class="hover:text-gray-200" :href="`mailto:${companyStore.companyEmail}`">{{ companyStore.companyEmail }}</a>
             </dd>
             <dd>
-              <a class="hover:text-gray-200" href="tel:+82 010-8560-3465">+82 010-8560-3465</a>
+              <a class="hover:text-gray-200" @click.prevent="copyToClipboard(companyStore.companyPhone)">{{ companyStore.companyPhone }}</a>
             </dd>
           </div>
         </div>
@@ -53,7 +53,11 @@ import { ref, watch, onMounted, defineProps, defineEmits } from 'vue'
 import { useRouter } from 'vue-router';
 import { gsap } from 'gsap';
 import { useScrollToSection } from '@/composables/useScrollToSection'
+import { useCompanyStore } from "../../stores/useCompanyStore.ts";
+
 const { scrollToSection } = useScrollToSection()
+const companyStore = useCompanyStore()
+const copyToClipboard = companyStore.copyToClipboard
 
 const props = defineProps({
   isMenuOpen: {

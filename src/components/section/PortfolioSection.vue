@@ -17,7 +17,7 @@
             transform: `scale(${currentIndex === index ? 1 : 0.9})`,
             transition: 'transform 0.3s ease',
             opacity: currentIndex === index ? 1 : 0.7,
-            filter: currentIndex === index ? 'none' : 'grayscale(0.5)'
+            filter: currentIndex === index ? 'none' : 'grayscale(0.5)',
           }"
           @click='moveToSlider(index)'
         >
