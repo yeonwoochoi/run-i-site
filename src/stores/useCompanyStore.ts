@@ -9,7 +9,7 @@ export const useCompanyStore = defineStore('company', {
     companyAddress: '전북특별자치도 전주시 완산구 서신천변2길 3-3'
   }),
   actions: {
-    async copyToClipboard(text) {
+    async copyToClipboard(text: string) {
       try {
         await navigator.clipboard.writeText(text)
         alert(`텍스트가 복사되었습니다: ${text}`)
