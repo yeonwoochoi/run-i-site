@@ -3,15 +3,18 @@
     <div class='my-12'>
       <p class='font-bold text-5xl'>포트폴리오</p>
     </div>
-    <div class='relative w-full h-[570px] max-w-full flex flex-row justify-center overflow-hidden mx-auto mt-20'>
+    <div class='relative w-full h-[540px] max-w-full flex flex-row justify-center overflow-visible mx-auto my-20'>
       <div
         class='flex transition-transform duration-500 w-[350px] portfolio-container gap-4'
         :style='{ transform: `translateX(-${currentIndex * 105}%)` }'
       >
-        <div
+        <PortfolioCard
           v-for='(portfolio, index) in portfolios'
           :key='`portfolio-card-${index}`'
-          class='w-[350px] flex-shrink-0'
+          :portfolio='portfolio'
+          :isActive='currentIndex === index'
+          @click='moveToSlider(index)'
+          @open-modal='openModal(portfolio)'
           :class='`${currentIndex !== index ? "inactive-slider-content" : ""}`'
           :style="{
             transform: `scale(${currentIndex === index ? 1 : 0.9})`,
@@ -19,39 +22,11 @@
             opacity: currentIndex === index ? 1 : 0.7,
             filter: currentIndex === index ? 'none' : 'grayscale(0.5)',
           }"
-          @click='moveToSlider(index)'
-        >
-          <div class='flex flex-col h-full justify-center'>
-            <img :src='portfolio.image' class='w-full h-[300px] aspect-[334/300]' />
-            <div class='pt-2 px-1 box-border flex-1 justify-start'>
-              <h3 class='font-bold'>{{ portfolio.title }}</h3>
-              <div class='mt-1 mb-4 max-w-full flex flex-wrap'>
-                <div class='flex flex-row my-2'>
-                  <div v-for='(tech, i) in portfolio.tech' :key='`portfolio-tech-${i}`'
-                       class='bg-black text-white text-xs py-1 px-2 mr-1 mb-1.5 rounded-xl flex items-center'>
-                    {{ tech }}
-                  </div>
-                </div>
-              </div>
-
-              <span
-                class='text-gray-500 max-h-20 overflow-hidden text-ellipsis block text-md line-clamp-3'>{{ portfolio.description }}</span>
-            </div>
-            <div class='mt-1 mb-4 max-w-full flex flex-wrap'>
-              <a
-                :href='portfolio.link'
-                target='_blank'
-                class='w-[334px] bg-black px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700'
-                :class="currentIndex !== index ? 'pointer-events-none opacity-50' : ''"
-              >
-              Go
-              </a>
-            </div>
-          </div>
-        </div>
+        />
       </div>
     </div>
-    <div class='w-full flex flex-row justify-center items-center gap-12 pt-12'>
+    <PortfolioModal :portfolio='selectedPortfolio' :isOpen='isModalOpen' @close='closeModal' class="z-[100]"/>
+    <div class='w-full flex flex-row justify-center items-center gap-12'>
       <button @click='moveToPrevSlide' class='rounded-[50%] w-[54px] h-[54px] bg-black text-white flex justify-center items-center'>
         <ArrowLeftIcon class="w-6 h-6" style="stroke-width: 4;" />
       </button>
@@ -76,54 +51,69 @@ onMounted(() => {
 import vadaImage from '@/assets/images/portfolios/vada.png';
 import kunsanImage from '@/assets/images/hero-sections/privacy-policy.jpg';
 import jopandaImage from '@/assets/images/portfolios/joPanda.png';
+import PortfolioCard from "@/components/card/PortfolioCard.vue";
+import PortfolioModal from "@/components/modal/PortfolioModal.vue";
 
 const portfolios = [
   {
     title: 'Vada Partners',
-    tech: ['Nuxt.js', 'Vuetify', 'SpringBoot'],
+    techStack: ['Nuxt.js', 'Vuetify', 'SpringBoot'], // tech -> techStack로 수정
     description: '특허청과 연동된 기술 특허 가치 평가 기업의 웹사이트',
     link: '/',
-    image: vadaImage
+    image: vadaImage,
+    features: [
+      '특허청 연동 기능',
+      '기술 특허 가치 평가 시스템',
+      '기업 정보 관리 시스템',
+    ],
+    results: '특허 가치 평가 프로세스 자동화',
   },
   {
     title: 'Kunsan University AI Lab',
-    tech: ['Nuxt.js', 'Vuetify', 'SpringBoot'],
+    techStack: ['Nuxt.js', 'Vuetify', 'SpringBoot'], // tech -> techStack로 수정
     description: '군산대학교 AI 연구실 웹사이트',
     link: '/',
-    image: kunsanImage
+    image: kunsanImage,
+    features: [
+      '연구실 프로젝트 관리',
+      'AI 연구 데이터 시각화',
+      '연구자 간 협업 시스템',
+    ],
+    results: '연구 데이터의 효율적 관리 및 분석 기능 제공',
   },
   {
     title: "Jopanda's 수학문제은행",
-    tech: ['Unity'],
+    techStack: ['Unity'], // tech -> techStack로 수정
     description: '9만+ 개 중국 수학 문제를 랜덤 추출·커스텀할 수 있는 수학문제은행 앱',
     link: '/',
-    image: jopandaImage
-  }
+    image: jopandaImage,
+    features: [
+      '9만+ 개 수학 문제 제공',
+      '랜덤 문제 추출 및 맞춤형 문제 세트 생성',
+      '사용자 풀이 히스토리 및 분석 기능',
+    ],
+    results: '학생 맞춤형 문제 풀이로 학습 효율성 향상',
+  },
 ];
 
 
 const currentIndex = ref(0)
+const isModalOpen = ref(false);
+const selectedPortfolio = ref(null);
 
-const moveToSlider = (index) => {
-  currentIndex.value = index
-}
+const moveToSlider = (index) => { currentIndex.value = index; };
+const moveToPrevSlide = () => { if (currentIndex.value > 0) currentIndex.value--; };
+const moveToNextSlide = () => { if (currentIndex.value + 1 < portfolios.length) currentIndex.value++; };
 
-const moveToPrevSlide = () => {
-  if (currentIndex.value === 0) return
-  currentIndex.value--
-}
-
-const moveToNextSlide = () => {
-  if (currentIndex.value + 1 >= portfolios.length) return
-  currentIndex.value++
-}
+const openModal = (portfolio) => {
+  selectedPortfolio.value = portfolio;
+  isModalOpen.value = true;
+};
+const closeModal = () => {
+  isModalOpen.value = false;
+  selectedPortfolio.value = null;
+};
 </script>
 
 <style scoped>
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* 최대 3줄까지 표시 */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
 </style>
