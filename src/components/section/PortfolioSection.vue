@@ -49,7 +49,8 @@ onMounted(() => {
 })
 
 import vadaImage from '@/assets/images/portfolios/vada.png';
-import kunsanImage from '@/assets/images/hero-sections/privacy-policy.jpg';
+import vadaAdminImage from '@/assets/images/portfolios/vada_admin.png';
+import kunsanImage from '@/assets/images/portfolios/kunsan_ai.png';
 import jopandaImage from '@/assets/images/portfolios/joPanda.png';
 import PortfolioCard from "@/components/card/PortfolioCard.vue";
 import PortfolioModal from "@/components/modal/PortfolioModal.vue";
@@ -57,22 +58,36 @@ import PortfolioModal from "@/components/modal/PortfolioModal.vue";
 const portfolios = [
   {
     title: 'Vada Partners',
-    techStack: ['Nuxt.js', 'Vuetify', 'SpringBoot'], // tech -> techStack로 수정
-    description: '특허청과 연동된 기술 특허 가치 평가 기업의 웹사이트',
-    link: '/',
+    techStack: ['Nuxt.js', 'Vuetify', 'SpringBoot'],
+    description: '특허 검색 및 특허 기술 가치 평가 전문 기관. 키프리스와 연동된 평가 시스템 제공',
+    link: 'https://vada-web.run-i.com',
     image: vadaImage,
     features: [
-      '특허청 연동 기능',
-      '기술 특허 가치 평가 시스템',
-      '기업 정보 관리 시스템',
+      '특허 검색 기능 (키프리스 연동)',
+      '특허 기술 가치 평가 기능',
+      '대학 및 공공기관을 위한 특허 기술 평가 시스템',
     ],
-    results: '특허 가치 평가 프로세스 자동화',
+    results: '실시간 특허 기술 가치 평가 제공 및 자산 실사 지원',
+  },
+  {
+    title: 'Vada Partners Admin',
+    techStack: ['Nuxt.js', 'Vuetify', 'SpringBoot'],
+    description: '특허청과 연동된 기술 특허 가치 평가 기업의 관리자 웹사이트. 특허기술 가치 평가 시스템을 관리하는 플랫폼',
+    link: 'https://vada-admin.run-i.com/',
+    image: vadaAdminImage,
+    features: [
+      '회원 관리 시스템',
+      '결제 서비스 관리',
+      '고객 서비스 관리',
+      '데이터 관리 및 업데이트',
+    ],
+    results: '특허 기술 가치 평가 관리 및 분석 자동화',
   },
   {
     title: 'Kunsan University AI Lab',
     techStack: ['Nuxt.js', 'Vuetify', 'SpringBoot'], // tech -> techStack로 수정
     description: '군산대학교 AI 연구실 웹사이트',
-    link: '/',
+    link: 'https://ailab.run-i.com/',
     image: kunsanImage,
     features: [
       '연구실 프로젝트 관리',
@@ -85,7 +100,7 @@ const portfolios = [
     title: "Jopanda's 수학문제은행",
     techStack: ['Unity'], // tech -> techStack로 수정
     description: '9만+ 개 중국 수학 문제를 랜덤 추출·커스텀할 수 있는 수학문제은행 앱',
-    link: '/',
+    link: 'https://apps.apple.com/us/app/jopandas-math-item-pool/id1487631125',
     image: jopandaImage,
     features: [
       '9만+ 개 수학 문제 제공',
