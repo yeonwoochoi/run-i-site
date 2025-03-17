@@ -9,7 +9,7 @@
       <div class='pt-4 px-4 box-border flex-1 justify-start'>
         <div class="flex">
           <h3 class='font-bold'>{{ portfolio.title }}</h3>
-          <button @click.stop='$emit("open-modal", portfolio)' class='ml-2 bg-gray-700 text-white px-2 py-1 rounded'>
+          <button @click='$emit("open-modal", portfolio)' class='ml-2 bg-gray-700 text-white px-2 py-1 rounded'>
             <MagnifyingGlassIcon class="w-3 h-3 text-white" />
           </button>
         </div>
