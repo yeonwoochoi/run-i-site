@@ -81,7 +81,13 @@ const navigation = [
 ]
 
 const navbarStore = useNavbarStore()
-const mobileMenuOpen = computed(() => navbarStore.isOpen)
+const mobileMenuOpen = computed({
+  get: () => navbarStore.isOpen,
+  set: (val) => {
+    navbarStore.isOpen = val
+  },
+})
+
 
 const headerZIndex = ref(50)
 const handleAnimationFinished = (isOpen) => {
