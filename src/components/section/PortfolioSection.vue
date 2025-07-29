@@ -48,6 +48,7 @@ onMounted(() => {
   emitter.emit('portfolios-section', portfolioSection.value);
 })
 
+import jobPrepRoadImage from '@/assets/images/portfolios/job_prep_road.png';
 import vadaImage from '@/assets/images/portfolios/vada.png';
 import vadaAdminImage from '@/assets/images/portfolios/vada_admin.png';
 import kunsanImage from '@/assets/images/portfolios/kunsan_ai.png';
@@ -56,6 +57,19 @@ import PortfolioCard from "@/components/card/PortfolioCard.vue";
 import PortfolioModal from "@/components/modal/PortfolioModal.vue";
 
 const portfolios = [
+  {
+    title: "취준로드",
+    techStack: ['Next.js', 'TailwindCSS'],
+    description: 'AI를 활용해 목표 직무·업종별 맞춤형 취업 준비 로드맵을 자동 생성하는 웹 서비스',
+    link: 'https://jobprep-road.vercel.app/',
+    image: jobPrepRoadImage,
+    features: [
+      '목표 업종·직무 기반 채용 요구사항 자동 분석',
+      'GPT-4를 활용한 맞춤형 취업 준비 로드맵 생성',
+      '사용자 맞춤 커리큘럼 관리 및 학습 진행 추적',
+    ],
+    results: '개인별 최적화된 준비 전략 제공으로 취업 준비 효율성 향상',
+  },
   {
     title: 'Vada Partners',
     techStack: ['Nuxt.js', 'Vuetify', 'SpringBoot'],
