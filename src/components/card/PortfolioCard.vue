@@ -40,7 +40,12 @@
 <script setup>
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
 
-defineProps({ portfolio: Object, isActive: Boolean });
+defineProps({
+  portfolio: Object,
+  isActive: Boolean,
+  index: Number,
+  currentIndex: Number
+});
 defineEmits(['click', 'open-modal']);
 </script>
 

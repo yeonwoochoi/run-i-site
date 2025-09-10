@@ -13,6 +13,8 @@
           :key='`portfolio-card-${index}`'
           :portfolio='portfolio'
           :isActive='currentIndex === index'
+          :index="index"
+          :currentIndex="currentIndex"
           @click='moveToSlider(index)'
           @open-modal='openModal(portfolio)'
           :class='`${currentIndex !== index ? "inactive-slider-content" : ""}`'
@@ -53,26 +55,40 @@ import vadaImage from '@/assets/images/portfolios/vada.png';
 import vadaAdminImage from '@/assets/images/portfolios/vada_admin.png';
 import kunsanImage from '@/assets/images/portfolios/kunsan_ai.png';
 import jopandaImage from '@/assets/images/portfolios/joPanda.png';
+import yisoImage from '@/assets/images/portfolios/yiso.png';
 import PortfolioCard from "@/components/card/PortfolioCard.vue";
 import PortfolioModal from "@/components/modal/PortfolioModal.vue";
 
 const portfolios = [
   {
-    title: "취준로드",
-    techStack: ['Next.js', 'TailwindCSS'],
-    description: 'AI를 활용해 목표 직무·업종별 맞춤형 취업 준비 로드맵을 자동 생성하는 웹 서비스',
-    link: 'https://jobprep-road.vercel.app/',
-    image: jobPrepRoadImage,
+    title: "Jopanda's 수학문제은행",
+    techStack: ["Unity", "C#", "MVP Architecture", "UniRx"],
+    description: '8만+ 개 중국 수학 문제를 랜덤 추출·커스텀할 수 있는 수학문제은행 앱',
+    link: 'https://apps.apple.com/us/app/jopandas-math-item-pool/id1487631125',
+    image: jopandaImage,
     features: [
-      '목표 업종·직무 기반 채용 요구사항 자동 분석',
-      'GPT-4를 활용한 맞춤형 취업 준비 로드맵 생성',
-      '사용자 맞춤 커리큘럼 관리 및 학습 진행 추적',
+      '8만+ 개 수학 문제 제공',
+      '랜덤 문제 추출 및 맞춤형 문제 세트 생성',
+      '사용자 풀이 히스토리 및 분석 기능',
     ],
-    results: '개인별 최적화된 준비 전략 제공으로 취업 준비 효율성 향상',
+    results: '학생 맞춤형 문제 풀이로 학습 효율성 향상',
+  },
+  {
+    title: "이소의 모험 - Ep.1",
+    techStack: ['Unity', 'C#', 'Addressable Assets'],
+    description: '확장 가능한 3-Tier 아키텍처 기반의 심리스(Seamless) 2D 오픈월드 RPG',
+    link: 'https://play.google.com/store/apps/details?id=com.runi.game.yiso.android&pcampaignid=web_share',
+    image: yisoImage,
+    features: [
+      '경계 없는 심리스(Seamless) 월드 탐험',
+      '에피소드 형식의 깊이 있는 메인 시나리오',
+      '컴포넌트 기반의 확장 가능한 캐릭터 및 AI 시스템',
+    ],
+    results: '향후 대규모 콘텐츠 업데이트를 안정적으로 지원할 수 있는 견고한 3-Tier 클라이언트 아키텍처 기반을 구축',
   },
   {
     title: 'Vada Partners',
-    techStack: ['Nuxt.js', 'Vuetify', 'SpringBoot'],
+    techStack: ["Nuxt.js", "Vuetify", "SpringBoot"],
     description: '특허 검색 및 특허 기술 가치 평가 전문 기관. 키프리스와 연동된 평가 시스템 제공',
     link: 'https://vada-web.run-i.com',
     image: vadaImage,
@@ -81,11 +97,11 @@ const portfolios = [
       '특허 기술 가치 평가 기능',
       '대학 및 공공기관을 위한 특허 기술 평가 시스템',
     ],
-    results: '실시간 특허 기술 가치 평가 제공 및 자산 실사 지원',
+    results: 'B2B 특허 기술 가치 평가 제공 및 자산 실사 지원',
   },
   {
     title: 'Vada Partners Admin',
-    techStack: ['Nuxt.js', 'Vuetify', 'SpringBoot'],
+    techStack: ["Nuxt.js", "Vuetify", "SpringBoot"],
     description: '특허청과 연동된 기술 특허 가치 평가 기업의 관리자 웹사이트. 특허기술 가치 평가 시스템을 관리하는 플랫폼',
     link: 'https://vada-admin.run-i.com/',
     image: vadaAdminImage,
@@ -96,6 +112,19 @@ const portfolios = [
       '데이터 관리 및 업데이트',
     ],
     results: '특허 기술 가치 평가 관리 및 분석 자동화',
+  },
+  {
+    title: "취준로드",
+    techStack: ["Next.js", "TailwindCSS", "Vercel"],
+    description: 'AI를 활용해 목표 직무·업종별 맞춤형 취업 준비 로드맵을 자동 생성하는 웹 서비스',
+    link: 'https://jobprep-road.vercel.app/',
+    image: jobPrepRoadImage,
+    features: [
+      '목표 업종·직무 기반 채용 요구사항 자동 분석',
+      'GPT-4를 활용한 맞춤형 취업 준비 로드맵 생성',
+      '사용자 맞춤 커리큘럼 관리 및 학습 진행 추적',
+    ],
+    results: '개인별 최적화된 준비 전략 제공으로 취업 준비 효율성 향상',
   },
   {
     title: 'Kunsan University AI Lab',
@@ -109,19 +138,6 @@ const portfolios = [
       '연구자 간 협업 시스템',
     ],
     results: '연구 데이터의 효율적 관리 및 분석 기능 제공',
-  },
-  {
-    title: "Jopanda's 수학문제은행",
-    techStack: ['Unity'], // tech -> techStack로 수정
-    description: '9만+ 개 중국 수학 문제를 랜덤 추출·커스텀할 수 있는 수학문제은행 앱',
-    link: 'https://apps.apple.com/us/app/jopandas-math-item-pool/id1487631125',
-    image: jopandaImage,
-    features: [
-      '9만+ 개 수학 문제 제공',
-      '랜덤 문제 추출 및 맞춤형 문제 세트 생성',
-      '사용자 풀이 히스토리 및 분석 기능',
-    ],
-    results: '학생 맞춤형 문제 풀이로 학습 효율성 향상',
   },
 ];
 

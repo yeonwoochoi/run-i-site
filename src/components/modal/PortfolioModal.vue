@@ -57,14 +57,6 @@ const emit = defineEmits(["close"]);
 const closeModal = () => {
   emit("close");
 };
-
-// isOpen 변경 시 스크롤 상태 관리
-watch(
-  () => props.isOpen,
-  (newVal) => {
-    document.body.style.overflow = newVal ? "hidden" : "auto";
-  }
-);
 </script>
 
 <style scoped>
