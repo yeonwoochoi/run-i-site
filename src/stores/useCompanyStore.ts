@@ -2,10 +2,10 @@ import {defineStore} from 'pinia'
 
 export const useCompanyStore = defineStore('company', {
   state: () => ({
-    companyName: { kr: '런아이', en: 'Run-i Studio' },
-    companyNumber: '112-06-26101',
+    companyName: { kr: '러니 스튜디오', en: 'Run-i Studio' },
+    companyNumber: '511-71-00586',
     companyPhone: '+82 010-8560-3465',
-    companyEmail: 'runi.studio.kr@gmail.com',
+    companyEmail: 'studioruni@gmail.com',
     companyAddress: '전북특별자치도 전주시 완산구 서신천변2길 3-3'
   }),
   actions: {

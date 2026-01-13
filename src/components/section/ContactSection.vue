@@ -27,8 +27,8 @@
                     <span class="sr-only">사업자 등록번호</span>
                     <BuildingOffice2Icon class="h-7 w-6 text-gray-400" aria-hidden="true" />
                   </dt>
-                  <dd @click.prevent="copyToClipboard(companyNumber)" class="cursor-pointer hover:text-gray-900">
-                    {{ companyNumber }}</dd>
+                  <dd @click.prevent="copyToClipboard(companyName.kr)" class="cursor-pointer hover:text-gray-900">
+                    {{ companyName.kr }}</dd>
                 </div>
                 <div class="flex gap-x-4">
                   <dt class="flex-none">
@@ -111,7 +111,7 @@ onMounted(() => {
   emitter.emit('contact-section', contactSection.value);
 })
 
-const { companyNumber, companyAddress, companyPhone, companyEmail, copyToClipboard } = useCompanyStore()
+const { companyName, companyNumber, companyAddress, companyPhone, companyEmail, copyToClipboard } = useCompanyStore()
 </script>
 
 <style scoped>
