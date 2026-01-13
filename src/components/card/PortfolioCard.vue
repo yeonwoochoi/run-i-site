@@ -1,36 +1,54 @@
 <template>
   <div
-    class="w-[350px] flex-shrink-0"
-    @click="$emit('click')"
-    :class="{'shadow-lg': isActive, 'portfolio-card-container': isActive}"
+    class="w-[350px] flex-shrink-0 bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+    :class="{ 'ring-2 ring-black': isActive }"
+    @click="handleCardClick"
   >
-    <div class='flex flex-col h-full justify-center'>
-      <img :src='portfolio.image' class='w-full h-[300px] aspect-[334/300]' />
-      <div class='pt-4 px-4 box-border flex-1 justify-start'>
-        <div class="flex">
-          <h3 class='font-bold'>{{ portfolio.title }}</h3>
-          <button @click='$emit("open-modal", portfolio)' class='ml-2 bg-gray-700 text-white px-2 py-1 rounded'>
-            <MagnifyingGlassIcon class="w-3 h-3 text-white" />
-          </button>
+    <div class="flex flex-col h-full">
+      <!-- Image Container with Hover Overlay -->
+      <div class="relative group cursor-pointer overflow-hidden rounded-t-2xl" @click.stop="handleImageClick">
+        <img
+          :src="portfolio.image"
+          :alt="portfolio.title"
+          class="w-full h-[240px] object-cover object-center"
+        />
+        <!-- Hover Overlay -->
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-3">
+          <MagnifyingGlassIcon class="w-10 h-10 text-white" />
+          <span class="text-white font-medium">자세히 보기</span>
         </div>
-        <div class='mt-1 mb-4 max-w-full flex flex-wrap'>
-          <div class='flex flex-row my-2'>
-            <div v-for='(tech, i) in portfolio.techStack' :key='`portfolio-techStack-${i}`'
-                 class='bg-black text-white text-xs py-1 px-2 mr-1 mb-1.5 rounded-xl flex items-center'>
-              {{ tech }}
-            </div>
-          </div>
-        </div>
-        <span class='text-gray-500 max-h-20 overflow-hidden text-ellipsis block text-md line-clamp-3'>{{ portfolio.description }}</span>
       </div>
-      <div class='mt-1 w-full flex flex-wrap'>
+
+      <!-- Content Area -->
+      <div class="p-5 flex flex-col flex-1">
+        <!-- Title -->
+        <h3 class="font-bold text-lg mb-3 line-clamp-1">{{ portfolio.title }}</h3>
+
+        <!-- Tech Stack Tags -->
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span
+            v-for="(tech, i) in portfolio.techStack"
+            :key="`portfolio-techStack-${i}`"
+            class="text-xs py-1 px-2.5 rounded-full border border-gray-300 text-gray-600 bg-gray-50"
+          >
+            {{ tech }}
+          </span>
+        </div>
+
+        <!-- Description -->
+        <p class="text-gray-600 text-sm leading-relaxed line-clamp-2 flex-1">
+          {{ portfolio.description }}
+        </p>
+
+        <!-- Go Button -->
         <a
-          :href='portfolio.link'
-          target='_blank'
-          class='w-full bg-black px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700'
-          :class="currentIndex !== index ? 'pointer-events-none opacity-50' : ''"
+          :href="portfolio.link"
+          target="_blank"
+          class="mt-4 block w-full bg-black text-white text-center py-3 rounded-xl font-medium hover:bg-gray-800 transition-colors duration-200"
+          :class="currentIndex !== index ? 'pointer-events-none opacity-40' : ''"
+          @click.stop
         >
-          Go
+          바로가기
         </a>
       </div>
     </div>
@@ -40,23 +58,43 @@
 <script setup>
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
 
-defineProps({
+const props = defineProps({
   portfolio: Object,
   isActive: Boolean,
   index: Number,
   currentIndex: Number
 });
-defineEmits(['click', 'open-modal']);
+const emit = defineEmits(['click', 'open-modal']);
+
+const handleCardClick = () => {
+  // 비활성 카드 클릭 시 해당 카드로 이동
+  if (!props.isActive) {
+    emit('click');
+  }
+};
+
+const handleImageClick = () => {
+  if (props.isActive) {
+    // 활성 카드 이미지 클릭 시 모달 열기
+    emit('open-modal', props.portfolio);
+  } else {
+    // 비활성 카드 이미지 클릭 시 해당 카드로 이동
+    emit('click');
+  }
+};
 </script>
 
 <style scoped>
-.line-clamp-3 {
+.line-clamp-1 {
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* 최대 3줄까지 표시 */
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.portfolio-card-container {
-  overflow: visible;
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <section ref='portfolioSection' class='relative w-screen flex flex-col justify-center items-center pt-20 pb-40 bg-[#f1f1f1]'>
     <div class='my-12'>
-      <p class='font-bold text-5xl'>포트폴리오</p>
+      <p class='font-bold text-5xl'>프로젝트</p>
     </div>
-    <div class='relative w-full h-[540px] max-w-full flex flex-row justify-center overflow-visible mx-auto my-20'>
+    <div class='relative w-full max-w-full overflow-x-clip overflow-y-visible mx-auto my-10 py-4'>
       <div
-        class='flex transition-transform duration-500 w-[350px] portfolio-container gap-4'
-        :style='{ transform: `translateX(-${currentIndex * 105}%)` }'
+        class='flex transition-transform duration-500 ease-out gap-6 px-[calc(50%-175px)]'
+        :style='{ transform: `translateX(-${currentIndex * 374}px)` }'
       >
         <PortfolioCard
           v-for='(portfolio, index) in portfolios'
@@ -17,24 +17,43 @@
           :currentIndex="currentIndex"
           @click='moveToSlider(index)'
           @open-modal='openModal(portfolio)'
-          :class='`${currentIndex !== index ? "inactive-slider-content" : ""}`'
+          class="transition-all duration-300 cursor-pointer"
           :style="{
-            transform: `scale(${currentIndex === index ? 1 : 0.9})`,
-            transition: 'transform 0.3s ease',
-            opacity: currentIndex === index ? 1 : 0.7,
-            filter: currentIndex === index ? 'none' : 'grayscale(0.5)',
+            transform: `scale(${currentIndex === index ? 1 : 0.92})`,
+            opacity: currentIndex === index ? 1 : 0.5,
           }"
         />
       </div>
     </div>
     <PortfolioModal :portfolio='selectedPortfolio' :isOpen='isModalOpen' @close='closeModal' class="z-[100]"/>
-    <div class='w-full flex flex-row justify-center items-center gap-12'>
-      <button @click='moveToPrevSlide' class='rounded-[50%] w-[54px] h-[54px] bg-black text-white flex justify-center items-center'>
-        <ArrowLeftIcon class="w-6 h-6" style="stroke-width: 4;" />
+    <div class='w-full flex flex-row justify-center items-center gap-6 mt-8'>
+      <button
+        @click='moveToPrevSlide'
+        :disabled='currentIndex === 0'
+        class='rounded-full w-12 h-12 bg-black text-white flex justify-center items-center transition-opacity duration-200'
+        :class="currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-gray-800'"
+      >
+        <ArrowLeftIcon class="w-5 h-5" />
       </button>
 
-      <button @click='moveToNextSlide' class='rounded-[50%] w-[54px] h-[54px] bg-black text-white flex justify-center items-center'>
-        <ArrowRightIcon class="w-6 h-6" style="stroke-width: 4;" />
+      <!-- Pagination Dots -->
+      <div class="flex gap-2">
+        <button
+          v-for="(_, index) in portfolios"
+          :key="`dot-${index}`"
+          @click="moveToSlider(index)"
+          class="w-2.5 h-2.5 rounded-full transition-all duration-300"
+          :class="currentIndex === index ? 'bg-black w-6' : 'bg-gray-400 hover:bg-gray-600'"
+        />
+      </div>
+
+      <button
+        @click='moveToNextSlide'
+        :disabled='currentIndex === portfolios.length - 1'
+        class='rounded-full w-12 h-12 bg-black text-white flex justify-center items-center transition-opacity duration-200'
+        :class="currentIndex === portfolios.length - 1 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-gray-800'"
+      >
+        <ArrowRightIcon class="w-5 h-5" />
       </button>
     </div>
   </section>
